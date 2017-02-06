@@ -1,3 +1,7 @@
+platforms
+plugins
+bower_components
+
 # Logs
 logs
 *.log
