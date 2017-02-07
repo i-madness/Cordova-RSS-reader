@@ -1,8 +1,4 @@
-import 'babel-core/polyfill';
-import jquery from 'jquery'
-let $ = jquery;
-
-$('body')
-    .append(
-        $("<div/>").html('WUSSHH')
-    )
+ReactDOM.render(
+    <PageHeader name="YARRRR"/>,
+    document.querySelector('#app')
+)
