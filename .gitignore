@@ -1,6 +1,6 @@
 platforms
 plugins
-bower_components
+www/xml
 
 # Logs
 logs

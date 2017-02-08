@@ -1,6 +1,9 @@
 'use strict';
 $.support.cors = true;
 
+/**
+ * Класс-базовое описание единицы содержимого RSS-ленты
+ */
 class FeedItem {
     constructor(title, description, link) {
         this.title = title;
@@ -18,6 +21,9 @@ class FeedItem {
     }
 }
 
+/**
+ * Парсер RSS-лент
+ */
 const FeedParser = (function ($) {
     let items;
     let query = url => $.ajax({ type: "GET", dataType: 'text', url: url })
