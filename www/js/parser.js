@@ -31,19 +31,19 @@ const Parser = (function ($) {
         parseSubscription: function () {
             return $.when($.ajax({
                 type: "GET",
-                dataType: 'xml',
+                dataType: 'text',
                 url: '/xml/example.xml',
             })).then(response => {
-                response = $.parseXML(response);
-                let result = [];
-                items = response.map((index, item) => {
+                // ссылки парсим отдельно, т.к. $('link') внезапно выдаёт теги с пустым innerHTML
+                let links = response.match(/(<link>)(.*)(<\/link>)/ig).map(link => link.match(/(http:\/\/.*)</ig)[0].replace('<',''));
+                let result = $(response).find('item').slice(1).map((index, item) => {
                     let $item = $(item);
                     return new FeedItem(
                         $item.find('title').html(),
                         $item.find('description').html(),
-                        $item.find('link').html()
+                        links[index]
                     )
-                });
+                }).toArray();
                 let deferred = new $.Deferred();
                 deferred.resolve(result); // данная версия jQuery вынуждает делать так вместо "return Promise.resolve(result)"
                 return deferred;
