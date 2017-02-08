@@ -5,30 +5,34 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" />
-    <link rel="stylesheet" href="/js/vendor/waves/waves.min.css" />
-    <link rel="stylesheet" href="/js/vendor/wow/animate.css" />
-    <link rel="stylesheet" href="/css/nativedroid2.css" />
-    <title>Hello World</title>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <title>Подписки</title>
 </head>
 
 <body>
-    <div id="app" data-role="page">
+    <div data-role="page" id="pageone">
+        <div data-role="header">
+            <h1>Подписки</h1>
+        </div>
 
+        <div data-role="main" class="ui-content">
+            <div class="item-container">
+                <div class="subscription-item" style="background: yellowgreen">1</div>
+                <div class="subscription-item" style="background: lawngreen">2</div>
+                <div class="subscription-item" style="background: lime">3</div>
+            </div>
+        </div>
+
+        <div data-role="footer">
+            <h1>(c) whatever</h1>
+        </div>
     </div>
     <script src="cordova.js"></script>
-    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
-    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-    <script src="/js/vendor/waves/waves.js"></script>
-    <script src="/js/vendor/wow/wow.min.js"></script>
-    <script src="/js/nativeDroid2.js"></script>
-    <script src="/js/nd2settings.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script type="text/babel" src="/js/components/basic.jsx"></script>
-    <script type="text/babel" src="/js/app.js"></script>
+    <script src="./js/components/basic.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 
 </html>

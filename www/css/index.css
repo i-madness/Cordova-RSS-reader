@@ -1,0 +1,13 @@
+.item-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100vh;
+}
+
+.subscription-item {
+    flex: 1;
+    flex-basis: 300px;
+    text-shadow: none;
+    padding: 7px;
+}

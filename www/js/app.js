@@ -1,4 +1,2 @@
-ReactDOM.render(
-    <PageHeader name="YARRRR"/>,
-    document.querySelector('#app')
-)
+let page = new Page({ id: 'main', content: 'woopwopp' });
+page.render();
