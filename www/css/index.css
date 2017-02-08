@@ -7,7 +7,11 @@
 
 .subscription-item {
     flex: 1;
-    flex-basis: 300px;
+    flex-basis: 150px;
     text-shadow: none;
     padding: 7px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(lightblue));
+    background-image: -webkit-linear-gradient(top, #fff, lightblue);
+    background-image: -moz-linear-gradient(top, #fff, lightblue);
+    background-image: linear-gradient(to bottom, #fff, lightblue);
 }
