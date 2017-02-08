@@ -1,8 +1,7 @@
-let subscriptions = ['/xml/example.xml'];
+'use strict';
 $.support.cors = true;
 
 class FeedItem {
-
     constructor(title, description, link) {
         this.title = title;
         this.description = description;
@@ -19,23 +18,20 @@ class FeedItem {
     }
 }
 
-const Parser = (function ($) {
+const FeedParser = (function ($) {
     let items;
-    let sub = subscriptions[0];
-    //let cutTag = (index, tag) => $(tag).html();
+    let query = url => $.ajax({ type: "GET", dataType: 'text', url: url })
 
     return {
         /**
+         * Получает содержимое RSS-ленты
+         * 
          * @returns {jQuery.Deferred}
          */
         parseSubscription: function () {
-            return $.when($.ajax({
-                type: "GET",
-                dataType: 'text',
-                url: '/xml/example.xml',
-            })).then(response => {
+            return query('/xml/example.xml').then(response => {
                 // ссылки парсим отдельно, т.к. $('link') внезапно выдаёт теги с пустым innerHTML
-                let links = response.match(/(<link>)(.*)(<\/link>)/ig).map(link => link.match(/(http:\/\/.*)</ig)[0].replace('<',''));
+                let links = response.match(/(<link>)(.*)(<\/link>)/ig).map(link => link.match(/(http:\/\/.*)</ig)[0].replace('<', ''));
                 let result = $(response).find('item').slice(1).map((index, item) => {
                     let $item = $(item);
                     return new FeedItem(
@@ -46,6 +42,30 @@ const Parser = (function ($) {
                 }).toArray();
                 let deferred = new $.Deferred();
                 deferred.resolve(result); // данная версия jQuery вынуждает делать так вместо "return Promise.resolve(result)"
+                return deferred;
+            });
+        },
+
+        /**
+         * Простейшая проверка того, что запрашиваемый ресурс является RSS-лентой
+         * 
+         * *** TODO: сделать проверку ресурсов, которые задаются в формате
+         * *** 'http://resource.com/', добавляя к ним 'rss.xml' (типа традиционный URL для лент новостных сайтов)
+         * 
+         * @returns {jQuery.Deferred}
+         */
+        validateRssFeed: function (url) {
+            return query(url).then(response => {
+                let deferred = new $.Deferred();
+                if (!response.includes('<?xml') && !response.includes('<rss version=')) {
+                    deferred.reject();
+                    return deferred;
+                }
+                let channel = $(response).find('channel');
+                deferred.resolve({
+                    title: channel.find('title:first').html(),
+                    description: channel.find('description:first').html()
+                });
                 return deferred;
             });
         }

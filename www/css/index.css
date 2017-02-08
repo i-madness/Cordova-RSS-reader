@@ -10,8 +10,19 @@
     flex-basis: 150px;
     text-shadow: none;
     padding: 7px;
+
+}
+
+.sub-item-head {
+/*    height: 90%;
+    width: 100%;*/
     background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(lightblue));
     background-image: -webkit-linear-gradient(top, #fff, lightblue);
     background-image: -moz-linear-gradient(top, #fff, lightblue);
     background-image: linear-gradient(to bottom, #fff, lightblue);
+}
+
+.sub-item-title {
+    padding: 100px 10px 10px 10px;
+    margin: 0;
 }
