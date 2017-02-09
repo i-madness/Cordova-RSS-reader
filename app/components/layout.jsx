@@ -1,6 +1,5 @@
 import '../css/mdl-icons.css'
 import '../css/material.min.css'
-import '../css/material.indigo-pink.min.css'
 import '../css/index.css'
 import '../../node_modules/material-design-lite/material.js'
 import React from 'react'

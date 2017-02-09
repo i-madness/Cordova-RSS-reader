@@ -3,7 +3,7 @@ import React from 'react'
 /**
  * Константа с возможными css-классами карточек
  */
-const cardTypes = {
+export const cardTypes = {
     SUBSCRIPTION_ITEM : 'SUBSCRIPTION_ITEM',
     FEED_ITEM: 'FEED_ITEM'
 }
