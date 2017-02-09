@@ -1,34 +1,24 @@
-body {
-    font-family: 'Roboto', sans-serif;
-}
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700,300);
 
+body {
+    /*font-family: 'Roboto', sans-serif;*/
+}
 .item-container {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    height: 100vh;
-    
+    height: 100vh;    
 }
-
 .subscription-item {
     flex: 1;
     flex-basis: 150px;
     text-shadow: none;
     padding: 7px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-
 }
-
 
 .subscription-item:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-.card__image {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(lightblue));
-    background-image: -webkit-linear-gradient(top, #fff, lightblue);
-    background-image: -moz-linear-gradient(top, #fff, lightblue);
-    background-image: linear-gradient(to bottom, #fff, lightblue);
 }
 
 .sub-item-title {
@@ -36,12 +26,20 @@ body {
     margin: 0;
 }
 
+.demo-card-wide.mdl-card {
+  width: 512px;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
 /***************************************************************************************************/
 
-
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,700,300);
-
-button {
+/*button {
   border: none;
   background: transparent;
 }
@@ -249,10 +247,10 @@ button {
 .card--small .card__action-bar {
   left: 88px;
 }
-
+*/
 /*>===================< CUSTOM >===================< */
 
-.card__title-icon {
+/*.card__title-icon {
     padding-left: 33px;
     margin-left: 6px;
     background-position-y: 50% !important;
@@ -275,4 +273,4 @@ button {
 
 .card--subscription-item .card__text {
   top: 45px;
-}
+}*/
