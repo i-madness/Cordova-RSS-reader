@@ -18,10 +18,10 @@
     "material-design-lite": "^1.3.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "webpack-dev-server": "^2.3.0"
+    "react-router": "^3.0.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server --hot --inline"
   },
   "repository": {
     "type": "git",
@@ -42,6 +42,8 @@
   "homepage": "https://github.com/i-madness/Cordova-RSS-reader#readme",
   "devDependencies": {
     "css-loader": "^0.26.1",
-    "style-loader": "^0.13.1"
+    "style-loader": "^0.13.1",
+    "webpack-dev-server": "^2.3.0",
+    "webpack-validator": "^2.3.0"
   }
 }

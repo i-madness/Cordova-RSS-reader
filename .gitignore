@@ -1,6 +1,7 @@
 platforms
 plugins
 www/xml
+bundle.min.js
 
 # Logs
 logs
