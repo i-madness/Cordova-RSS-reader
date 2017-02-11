@@ -5,9 +5,9 @@ import Layout from './components/layout.jsx';
 
 
 ReactDom.render(
-    <Route history={hashHistory}>
-        <Route path='/' component={Layout}>
+    <Router history={hashHistory}>
+        <Route path="/" component={Layout}>
         </Route>
-    </Route>,
+    </Router>,
     document.querySelector('#app')
 )

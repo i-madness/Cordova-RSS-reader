@@ -24,7 +24,7 @@ export default class Layout extends React.Component {
      * ** заменить <a> на <Link>
      */
     render() {
-        let navLinks = NAV_LINKS.map(link => <Link to="" className={'mdl-navigation__link'} href={'#'}>{link.title}</Link>)
+        let navLinks = NAV_LINKS.map((link, index) => <Link to="/" key={index} className={'mdl-navigation__link'} href={'#'}>{link.title}</Link>)
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header">
