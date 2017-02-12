@@ -1,6 +1,16 @@
 import { CardActions, Card } from '../components/basic/card.jsx'
 import _ from 'lodash'
-const parserInstance = new DOMParser();
+const PARSER_INSTANCE = new DOMParser();
+/**
+ * Регулярки для чистки респонса от ненужных тегов
+ */
+const DIRTY_REGEXPS = [
+    /<!\[CDATA\[/i,
+    /\]\]>/,
+    /<(\/){0,}a.*>/,
+    /<(\/){0,}script.*>/,
+
+]
 /**
  * Класс-базовое описание единицы содержимого RSS-ленты
  */
@@ -15,7 +25,7 @@ export class FeedItem {
 /**
  * Парсер RSS-лент
  */
-export const FeedParser = (function ($) {
+export const FeedParser = (function () {
     let items;
 
     return {
@@ -24,17 +34,17 @@ export const FeedParser = (function ($) {
          * 
          * @returns {Promise}
          */
-        parseSubscription: function () {
-            return fetch('/www/xml/example.xml')
+        parseSubscription: function (url = '/www/xml/example.xml') {
+            return fetch(url)
                 .then(resp => resp.text())
                 .then(txt => {
                     try {
-                        let doc = parserInstance.parseFromString(txt, "text/xml");
+                        let doc = PARSER_INSTANCE.parseFromString(txt, "text/xml");
                         let items = Array.from(doc.querySelectorAll('item'));
                         let result = items.map(item => {
-                            let title = _.find(item.childNodes, child => child.nodeName === 'title').innerHTML;
-                            let link = _.find(item.childNodes, child => child.nodeName === 'link').innerHTML;
-                            let description = _.find(item.childNodes, child => child.nodeName === 'description').innerHTML;
+                            let title = this.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'title').innerHTML);
+                            let link = this.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'link').innerHTML);
+                            let description = this.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'description').innerHTML);
                             if (title && link && description) {
                                 return new FeedItem(title, description, link);
                             }
@@ -62,12 +72,22 @@ export const FeedParser = (function ($) {
                     if (!txt.includes('<?xml') && !txt.includes('<rss version=')) {
                         return Promise.reject('запрашиваемый ресурс "' + url + '" не является RSS-лентой');
                     }
-                    let doc = parserInstance.parseFromString(txt, "text/xml");
+                    let doc = PARSER_INSTANCE.parseFromString(txt, "text/xml");
                     return Promise.resolve({
                         title: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'title').innerHTML,
                         description: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'description').innerHTML
                     });
                 });
+        },
+
+        /**
+         * Чистит строку от "мусорных" тегов
+         * @param   {String} responseElement строка, которую необходимо очистить
+         * @returns {String} нормализованную строку
+         */
+        cleanupContent: function (responseElement) {
+            DIRTY_REGEXPS.forEach(regexp => responseElement = responseElement.split(regexp).join(''))
+            return responseElement
         }
     }
-})(jQuery)
+})()

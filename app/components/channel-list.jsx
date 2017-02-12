@@ -1,15 +1,12 @@
 import React from 'react'
+import { Card } from './basic/card.jsx'
 
 /**
- * ** TODO получилось какое-то УГ в плане отделения title от остального класса
+ * ** TODO: получилось какое-то УГ в плане отделения title от остального класса
  * ** надо бы поправить этот момент
  */
 export class ChannelListTitle extends React.Component {
-    render() {
-        return (
-            <span class="mdl-layout-title">Список RSS-лент</span>
-        )
-    }
+    render() { return (<span class="mdl-layout-title">Список RSS-лент</span>) }
 }
 /**
  * Комопнент, отвечающий за список каналов
@@ -17,6 +14,6 @@ export class ChannelListTitle extends React.Component {
  */
 export class ChannelList extends React.Component {
     render() {
-        return (<div style={{backgroundColor: 'red'}}>Hi!</div>)
+        return (<div style={{ backgroundColor: 'red' }}>Hi!</div>)
     }
 }

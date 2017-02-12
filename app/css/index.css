@@ -1,9 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,700,300);
-
-
-#app-layout {
-  /*padding: 1.5em;*/
-}
 .demo-card-wide.mdl-card {
   width: 512px;
 }
@@ -17,10 +11,12 @@
 
 .mdl-card {
   width: 100%;
-/*  background-image: -webkit-gradient(linear, left top, left bottom, from(cyan), to(magenta));
-  background-image: -webkit-linear-gradient(top, cyan, magenta);
-  background-image: -moz-linear-gradient(top, cyan, magenta);
-  background-image: linear-gradient(to bottom, cyan, magenta);*/
+  margin-bottom: 10px;
+}
+
+.mdl-card__title {
+  color: #fff;
+  font-weight: bold;
 }
 
 .mdl-layout {
@@ -29,4 +25,8 @@
 
 .mdl-layout__content {
   padding: 1.5em;
+}
+
+.mdl-card__supporting-text {
+  color: rgba(0, 0, 0, 0.92);
 }

@@ -1,9 +1,10 @@
 import React from 'react'
+import Utils from '../../core/utils.js'
 
 /**
  * Константа с возможными css-классами карточек
  */
-export const cardTypes = {
+export const CardTypes = {
     SUBSCRIPTION_ITEM : 'SUBSCRIPTION_ITEM',
     FEED_ITEM: 'FEED_ITEM'
 }
@@ -30,13 +31,18 @@ export class CardActions extends React.Component {
 export class Card extends React.Component {
     constructor(props) {
         super(props);
-        this.type = props.type ? cardTypes[props.type] : "";
+        this.type = props.type ? CardTypes[props.type] : "";
+        this.extraCss = {}
+        switch (this.type) {
+            case CardTypes.FEED_ITEM:
+                this.extraCss['background'] = Utils.randomColor();
+        }
     }
 
     render() {
         return (
             <div class={" mdl-card mdl-shadow--2dp " + this.type}>
-                <div class={"mdl-card__title"}>
+                <div class={"mdl-card__title"} style={this.extraCss}>
                     <h2 class={"mdl-card__title-text"}>{this.props.title}</h2>
                 </div>
                 <div class={"mdl-card__supporting-text"}>

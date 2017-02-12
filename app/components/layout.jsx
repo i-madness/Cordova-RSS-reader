@@ -4,7 +4,6 @@ import '../css/index.css'
 import '../../node_modules/material-design-lite/material.js'
 import React from 'react'
 import { Link } from 'react-router'
-import { Card } from './basic/card.jsx'
 
 /**
  * Список навигационных ссылок
@@ -41,8 +40,7 @@ export default class Layout extends React.Component {
                 </div>
                 <main className="mdl-layout__content">
                     <div className="page-content">
-                        Когда-нибудь здесь действительно будет какой-то контент. Ну, возможно...
-                        ${body}
+                        {body}
                     </div>
                 </main>
             </div>
