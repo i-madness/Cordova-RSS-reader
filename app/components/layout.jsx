@@ -10,9 +10,8 @@ import { Card } from './basic/card.jsx'
  * Список навигационных ссылок
  */
 const NAV_LINKS = [
-    { title : 'Подписки' },
-    { title : 'Что-то ещё' },
-    { title : 'И ещё!' },
+    { title : 'Список подписок', to: '/' },
+    { title : 'Лента', to: 'feed' }
 ]
 
 /**
@@ -24,12 +23,14 @@ export default class Layout extends React.Component {
      * ** заменить <a> на <Link>
      */
     render() {
-        let navLinks = NAV_LINKS.map((link, index) => <Link to="/" key={index} className={'mdl-navigation__link'} href={'#'}>{link.title}</Link>)
+        let navLinks = NAV_LINKS.map((link, index) => <Link to={link.to} key={index} className={'mdl-navigation__link'} >{link.title}</Link>)
+        const { title, body } = this.props
+
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header">
                     <div className="mdl-layout__header-row">
-                        <span className="mdl-layout-title">RSS-ленты</span>
+                        {title}
                     </div>
                 </header>
                 <div className="mdl-layout__drawer">
@@ -41,6 +42,7 @@ export default class Layout extends React.Component {
                 <main className="mdl-layout__content">
                     <div className="page-content">
                         Когда-нибудь здесь действительно будет какой-то контент. Ну, возможно...
+                        ${body}
                     </div>
                 </main>
             </div>

@@ -15,8 +15,8 @@ export const cardTypes = {
 export class CardActions extends React.Component {
     render() {
         return (
-            <div className={"mdl-card__actions mdl-card--border"}>
-                <a className={"mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"} href={this.props.url}>
+            <div class={"mdl-card__actions mdl-card--border"}>
+                <a class={"mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"} href={this.props.url}>
                     {this.props.text}
                 </a>
             </div>
@@ -35,9 +35,9 @@ export class Card extends React.Component {
 
     render() {
         return (
-            <div className={" mdl-card mdl-shadow--2dp " + this.type}>
-                <div className={"mdl-card__title"}>
-                    <h2 className={"mdl-card__title-text"}>{this.props.title}</h2>
+            <div class={" mdl-card mdl-shadow--2dp " + this.type}>
+                <div class={"mdl-card__title"}>
+                    <h2 class={"mdl-card__title-text"}>{this.props.title}</h2>
                 </div>
                 <div class={"mdl-card__supporting-text"}>
                     {this.props.text}
