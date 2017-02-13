@@ -82,7 +82,7 @@ export const FeedParser = (function () {
                             description: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'description').innerHTML
                         })
                     })
-                    .then(result => dispatch({ type: ActionTypes.ADD_SUBSCRIPTION, payload: result }))
+                    .then(result => dispatch({ type: ActionTypes.ADD_SUBSCRIPTION, payload: result, url: url }))
                     .catch(error => dispatch({ type: ActionTypes.SUBSCRIBERS_LOADING_FAILURE, payload: error }))
 
             }

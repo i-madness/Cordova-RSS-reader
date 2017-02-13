@@ -34,9 +34,14 @@ export class Card extends React.Component {
         this.type = props.type ? CardTypes[props.type] : "";
         this.extraTitleCss = {}
         switch (this.type) {
-            case CardTypes.FEED_ITEM:
-                this.extraTitleCss['backgroundColor'] = Utils.randomColor();
+            case CardTypes.FEED_ITEM: {
+                this.extraTitleCss['backgroundColor'] = Utils.randomColor()
                 break;
+            }
+            case CardTypes.SUBSCRIPTION_ITEM: {
+                this.extraTitleCss['backgroundImage'] = `-webkit-gradient(linear, left top, left bottom, from(${Utils.randomColor()}), to(${Utils.randomColor()}))`
+                break;
+            }
         }
         if (props.img) {
             this.extraTitleCss['paddingLeft'] = '40%';
@@ -49,13 +54,16 @@ export class Card extends React.Component {
 
     render() {
         return (
-            <div class={" mdl-card mdl-shadow--2dp " + this.type}>
-                <div class={"mdl-card__title"} style={this.extraTitleCss}>
-                    <h2 class={"mdl-card__title-text"}>{this.props.title}</h2>
+            <div class="card-wrapper">
+                <div class={" mdl-card mdl-shadow--2dp " + this.type} >
+                    <div class={"mdl-card__title"} style={this.extraTitleCss}>
+                        <h2 class={"mdl-card__title-text"}>{this.props.title}</h2>
+                    </div>
+                    <div class={"mdl-card__supporting-text"}>
+                        {this.props.text}
+                    </div>
                 </div>
-                <div class={"mdl-card__supporting-text"}>
-                    {this.props.text}
-                </div>
+                <span style={{display: this.props.badge ? 'block' : 'none'}} class="card-badge mdl-badge" data-badge={this.props.badge}></span>
             </div>
         )
     }

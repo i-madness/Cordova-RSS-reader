@@ -30,3 +30,22 @@
 .mdl-card__supporting-text {
   color: rgba(0, 0, 0, 0.92);
 }
+
+#ajax-preloader {
+  margin-bottom: 10px;
+}
+
+.card-wrapper {
+  display: flex;
+}
+
+.card-badge {
+  position: absolute;
+  margin-right: 0;
+  z-index: 500;
+  right: 2.5em;
+}
+
+.card-badge::after {
+  background: #4059ff !important;
+}
