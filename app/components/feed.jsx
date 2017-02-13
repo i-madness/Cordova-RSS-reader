@@ -24,7 +24,7 @@ export class Feed extends React.Component {
     componentDidMount() {
         this.subPromise = FeedParser.parseSubscription()
             .then(items => {
-                items = items.map((item, index) => <Card type={CardTypes.FEED_ITEM} title={item.title} text={item.description} key={index} />)
+                items = items.map((item, index) => <Card type={CardTypes.FEED_ITEM} title={item.title} text={item.description} img={item.img} key={index} />)
                 this.setState({ items })
             })
     }
@@ -32,9 +32,6 @@ export class Feed extends React.Component {
     render() {
         return (
             <div>
-                {/*{this.state.
-                }
-                )}*/}
                 {this.state.items}
             </div>
         )

@@ -17,10 +17,6 @@ const NAV_LINKS = [
  * Компонент, содержащий основной каркас приложения
  */
 export default class Layout extends React.Component {
-    /**
-     * ** TODO: сделать кастомный mdl-layout__content, адаптированный под Router,
-     * ** заменить <a> на <Link>
-     */
     render() {
         let navLinks = NAV_LINKS.map((link, index) => <Link to={link.to} key={index} className={'mdl-navigation__link'} >{link.title}</Link>)
         const { title, body } = this.props

@@ -1,4 +1,3 @@
-import { CardActions, Card } from '../components/basic/card.jsx'
 import _ from 'lodash'
 const PARSER_INSTANCE = new DOMParser();
 /**
@@ -19,6 +18,7 @@ export class FeedItem {
         this.title = title;
         this.description = description;
         this.link = link;
+        //this.img = 'https://i.stack.imgur.com/mAtCl.png'
     }
 }
 

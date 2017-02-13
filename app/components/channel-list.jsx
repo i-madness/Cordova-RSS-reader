@@ -2,12 +2,12 @@ import React from 'react'
 import { Card } from './basic/card.jsx'
 
 /**
- * ** TODO: получилось какое-то УГ в плане отделения title от остального класса
- * ** надо бы поправить этот момент
+ * Заголовок страницы со списком каналов
  */
 export class ChannelListTitle extends React.Component {
     render() { return (<span class="mdl-layout-title">Список RSS-лент</span>) }
 }
+
 /**
  * Комопнент, отвечающий за список каналов
  * Располагается в теле страницы (!)
