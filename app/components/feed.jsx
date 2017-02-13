@@ -3,8 +3,7 @@ import { FeedParser } from '../core/parser.js'
 import { Card, CardTypes } from './basic/card.jsx'
 
 /**
- * ** TODO: получилось какое-то УГ в плане отделения title от остального класса
- * ** надо бы поправить этот момент
+ * Заголовок страницы ленты
  */
 export class FeedTitle extends React.Component {
     render() { return (<span class="mdl-layout-title">Лента</span>) }

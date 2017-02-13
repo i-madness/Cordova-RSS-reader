@@ -6,4 +6,7 @@ import reducer from './reducers/index.js'
 
 const middleware = applyMiddleware(promise(), thunk, logger())
 
-export default createStore(reducer, middleware)
+const store = 
+      window.store = createStore(reducer, middleware) // dev shenanigans
+
+export default store

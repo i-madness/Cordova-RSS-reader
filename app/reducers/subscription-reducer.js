@@ -5,29 +5,33 @@ const InitialState = {
     error: null
 }
 
-const ActionTypes = {
+export const ActionTypes = {
     ADD_SUBSCRIPTION: 'ADD_SUBSCRIPTION',
     SUBSCRIBERS_LOADING: 'SUBSCRIBERS_LOADING',
     SUBSCRIBERS_LOADING_SUCCESS: 'SUBSCRIBERS_LOADING_SUCCESS',
     SUBSCRIBERS_LOADING_FAILURE: 'SUBSCRIBERS_LOADING_FAILURE'
 }
 
-
-export default function subscriptionReducer(state = InitialState, action) {
-    switch (action) {
+/**
+ * Reducer, управляющий состоянием подписок на RSS-каналы
+ */
+export function subscriptionReducer(state = InitialState, action) {
+    switch (action.type) {
         case ActionTypes.ADD_SUBSCRIPTION: {
             return {
                 ...state,
+                loaded: true,
+                loading: false,
                 subscriptions: [...state.subscriptions, action.payload]
             }
         }
         case ActionTypes.SUBSCRIBERS_LOADING: {
             return {...state, loading: true}
         }
-        case ActionTypes.SUBSCRIBERS_FAIL: {
+        case ActionTypes.SUBSCRIBERS_LOADING_FAILURE: {
             return {...state, loading: false, error: action.payload}
         }
-        case ActionTypes.SUBSCRIBERS_FETCHED: {
+        case ActionTypes.SUBSCRIBERS_LOADING_SUCCESS: {
             return {
                 ...state,
                 subscriptions: action.payload,
@@ -36,4 +40,5 @@ export default function subscriptionReducer(state = InitialState, action) {
             }
         }
     }
+    return state;
 }

@@ -1,4 +1,6 @@
 import _ from 'lodash'
+import { ActionTypes } from '../reducers/subscription-reducer.js'
+
 const PARSER_INSTANCE = new DOMParser();
 /**
  * Регулярки для чистки респонса от ненужных тегов
@@ -66,18 +68,24 @@ export const FeedParser = (function () {
          * @returns {Promise}
          */
         validateRssFeed: function (url) {
-            return fetch(url)
-                .then(response => response.text())
-                .then(txt => {
-                    if (!txt.includes('<?xml') && !txt.includes('<rss version=')) {
-                        return Promise.reject('запрашиваемый ресурс "' + url + '" не является RSS-лентой');
-                    }
-                    let doc = PARSER_INSTANCE.parseFromString(txt, "text/xml");
-                    return Promise.resolve({
-                        title: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'title').innerHTML,
-                        description: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'description').innerHTML
-                    });
-                });
+            return dispatch => {
+                dispatch({ type: ActionTypes.SUBSCRIBERS_LOADING })
+                fetch(url)
+                    .then(response => response.text())
+                    .then(txt => {
+                        if (!txt.includes('<?xml') && !txt.includes('<rss version=')) {
+                            return Promise.reject('запрашиваемый ресурс "' + url + '" не является RSS-лентой');
+                        }
+                        let doc = PARSER_INSTANCE.parseFromString(txt, "text/xml");
+                        return Promise.resolve({
+                            title: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'title').innerHTML,
+                            description: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'description').innerHTML
+                        })
+                    })
+                    .then(result => dispatch({ type: ActionTypes.ADD_SUBSCRIPTION, payload: result }))
+                    .catch(error => dispatch({ type: ActionTypes.SUBSCRIBERS_LOADING_FAILURE, payload: error }))
+
+            }
         },
 
         /**
