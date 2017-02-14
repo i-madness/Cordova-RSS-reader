@@ -11,7 +11,7 @@ export const CardTypes = {
 
 /**
  * Ссылки "Actions" на карточке Card
- * ** (TODO)
+ * ** TODO: нужно ли это вообще?
  */
 export class CardActions extends React.Component {
     render() {
@@ -26,7 +26,7 @@ export class CardActions extends React.Component {
 }
 
 /**
- * Карточка Material Design Lite
+ * Карточка Material Design Lite, основная единица контента на страницах ленты и подписок
  */
 export class Card extends React.Component {
     constructor(props) {

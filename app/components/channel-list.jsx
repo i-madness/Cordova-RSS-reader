@@ -24,7 +24,7 @@ export class ChannelListTitle extends React.Component {
 })
 export class ChannelList extends React.Component {
     componentWillMount() {
-        this.props.dispatch(FeedParser.validateRssFeed('/www/xml/example.xml'))
+        this.props.dispatch(FeedParser.addRssFeed('/www/xml/example.xml'))
     }
 
     render() {

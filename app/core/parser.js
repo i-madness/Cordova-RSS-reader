@@ -1,6 +1,10 @@
 import _ from 'lodash'
 import { ActionTypes } from '../reducers/subscription-reducer.js'
 
+/**
+ * Инстанс парсера XML-документов для анализа контента RSS-лент
+ */
+
 const PARSER_INSTANCE = new DOMParser();
 /**
  * Регулярки для чистки респонса от ненужных тегов
@@ -34,6 +38,8 @@ export const FeedParser = (function () {
         /**
          * Получает содержимое RSS-ленты
          * 
+         * ** TODO: переделать на манер Redux!
+         * 
          * @returns {Promise}
          */
         parseSubscription: function (url = '/www/xml/example.xml') {
@@ -60,14 +66,17 @@ export const FeedParser = (function () {
         },
 
         /**
-         * Простейшая проверка того, что запрашиваемый ресурс является RSS-лентой
+         * Метод добавления новой RSS-ленты, основанный на fetch. Делает проверку ленты на валидность.
+         * Если валидация выполнена без ошибок, соответствующий Redux Reducer обработает действие ActionTypes.ADD_SUBSCRIPTION,
+         * ведущее к добавлению новой подписки.
+         * В случае, если проверка не пройдена (или в цепочке Promise произойдёт reject), Reducer обработает
+         * действие ActionTypes.SUBSCRIBERS_LOADING_FAILURE.
          * 
          * *** TODO: сделать проверку ресурсов, которые задаются в формате
          * *** 'http://resource.com/', добавляя к ним 'rss.xml' (типа традиционный URL для лент новостных сайтов)
          * 
-         * @returns {Promise}
          */
-        validateRssFeed: function (url) {
+        addRssFeed: function (url) {
             return dispatch => {
                 dispatch({ type: ActionTypes.SUBSCRIBERS_LOADING })
                 fetch(url)

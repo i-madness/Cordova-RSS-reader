@@ -8,15 +8,27 @@ import Layout from './components/layout.jsx'
 import { ChannelList, ChannelListTitle } from './components/channel-list.jsx'
 import { Feed, FeedTitle } from './components/feed.jsx'
 
+/**
+ * Главный DOM-элемент, в котором рендерится всё приложение
+ */
+const APP_CONTAINER = document.querySelector('#app')
+
+/**
+ * Составные части Layout'а, используемые для отдельного роута/страницы
+ */
+const PageItemMap = {
+    subscriptions: { title: ChannelListTitle, body: ChannelList },
+    feed: { title: FeedTitle, body: Feed }
+}
 
 ReactDom.render(
     <Provider store={store}>
         <Router history={hashHistory}>
             <Route path="/" component={Layout} >
-                <IndexRoute components={{ title: ChannelListTitle, body: ChannelList }}></IndexRoute>
-                <Route path="feed" components={{ title: FeedTitle, body: Feed }}></Route>
+                <IndexRoute components={PageItemMap.subscriptions}></IndexRoute>
+                <Route path="feed" components={PageItemMap.feed}></Route>
             </Route>
         </Router>
     </Provider>,
-    document.querySelector('#app')
+    APP_CONTAINER
 )

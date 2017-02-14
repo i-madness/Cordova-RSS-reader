@@ -1,3 +1,6 @@
+/**
+ * Начальный объект состояния для subscriptionReducer
+ */
 const InitialState = {
     subscriptions: [],
     loading: false,
@@ -5,6 +8,9 @@ const InitialState = {
     error: null
 }
 
+/**
+ * Типы действий, обрабатываемых subscriptionReducer'ом
+ */
 export const ActionTypes = {
     ADD_SUBSCRIPTION: 'ADD_SUBSCRIPTION',
     SUBSCRIBERS_LOADING: 'SUBSCRIBERS_LOADING',
