@@ -23,8 +23,7 @@ export class ChannelListTitle extends React.Component {
 })
 export class ChannelList extends React.Component {
     componentWillMount() {
-        let subscriptionUrls = JSON.parse(localStorage.getItem('subscriptions'))
-        subscriptionUrls && subscriptionUrls.forEach(url => this.props.dispatch(FeedParser.addRssFeed(url)));
+
     }
 
     render() {

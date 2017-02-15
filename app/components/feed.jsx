@@ -13,26 +13,35 @@ export class FeedTitle extends React.Component {
 /**
  * Комопнент, отвечающий за список каналов
  */
+@connect(store => {
+    return {
+        channels: store.subscriptionReducer.subscriptions,
+        loading: store.feedReducer.loading,
+        entries: store.feedReducer.entries
+    }
+})
 export class Feed extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            items: []
-        }
     }
 
-    componentDidMount() {
-        this.subPromise = FeedParser.parseSubscription()
-            .then(items => {
-                items = items.map((item, index) => <Card type={CardTypes.FEED_ITEM} title={item.title} text={item.description} img={item.img} key={index} />)
-                this.setState({ items })
-            })
+    componentWillMount() {
+        let { channels } = this.props
+        channels && this.props.dispatch(FeedParser.parseSubscription(channels))
     }
 
     render() {
+        console.log(this.props)
+        let { entries } = this.props
+        let entryCards = entries.map((item, index) => {
+            //let imageUrls = item.description.match(/<img.*\W+\/>/i).map(str => str.match(/\/\/.*\.[a-z]*/g)[0])
+            // заменяем теги <br> на абзацы
+            let cardContent = item.description.split(/<br\W*\/>/).map((paragraph, parIndex) => <p key={parIndex}>{paragraph}</p>)
+            return <Card type={CardTypes.FEED_ITEM} title={item.title} text={cardContent} img={item.img} key={index} />
+        })
         return (
             <div>
-                {this.state.items}
+                {entryCards}
             </div>
         )
     }

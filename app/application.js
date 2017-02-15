@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import { Provider } from 'react-redux'
+import { FeedParser } from './core/parser.js'
 
 import store from './store'
 import Layout from './components/layout.jsx'
@@ -20,6 +21,9 @@ const PageItemMap = {
     subscriptions: { title: ChannelListTitle, body: ChannelList },
     feed: { title: FeedTitle, body: Feed }
 }
+
+let subscriptionUrls = JSON.parse(localStorage.getItem('subscriptions'))
+subscriptionUrls && subscriptionUrls.forEach(url => store.dispatch(FeedParser.addRssFeed(url)));
 
 ReactDom.render(
     <Provider store={store}>
