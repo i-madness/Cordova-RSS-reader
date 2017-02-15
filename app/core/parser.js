@@ -70,7 +70,7 @@ export const FeedParser = (function () {
          * Если валидация выполнена без ошибок, соответствующий Redux Reducer обработает действие ActionTypes.ADD_SUBSCRIPTION,
          * ведущее к добавлению новой подписки.
          * В случае, если проверка не пройдена (или в цепочке Promise произойдёт reject), Reducer обработает
-         * действие ActionTypes.SUBSCRIBERS_LOADING_FAILURE.
+         * действие ActionTypes.SUBSCRIPTIONS_LOADING_FAILURE.
          * 
          * *** TODO: сделать проверку ресурсов, которые задаются в формате
          * *** 'http://resource.com/', добавляя к ним 'rss.xml' (типа традиционный URL для лент новостных сайтов)
@@ -78,7 +78,7 @@ export const FeedParser = (function () {
          */
         addRssFeed: function (url) {
             return dispatch => {
-                dispatch({ type: ActionTypes.SUBSCRIBERS_LOADING })
+                dispatch({ type: ActionTypes.SUBSCRIPTIONS_LOADING })
                 fetch(url)
                     .then(response => response.text())
                     .then(txt => {
@@ -91,8 +91,11 @@ export const FeedParser = (function () {
                             description: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'description').innerHTML
                         })
                     })
-                    .then(result => dispatch({ type: ActionTypes.ADD_SUBSCRIPTION, payload: result, url: url }))
-                    .catch(error => dispatch({ type: ActionTypes.SUBSCRIBERS_LOADING_FAILURE, payload: error }))
+                    .then(result => {
+                        dispatch({ type: ActionTypes.ADD_SUBSCRIPTION, payload: result })
+                        //return Promise.resolve()
+                    })
+                    .catch(error => dispatch({ type: ActionTypes.SUBSCRIPTIONS_LOADING_FAILURE, payload: error }))
 
             }
         },

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import { FeedParser } from '../core/parser.js'
 import { Card, CardTypes } from './basic/card.jsx'
-//import '../../node_modules/material-design-lite/material.js' 
 
 /**
  * Заголовок страницы со списком каналов
@@ -24,14 +23,13 @@ export class ChannelListTitle extends React.Component {
 })
 export class ChannelList extends React.Component {
     componentWillMount() {
-        this.props.dispatch(FeedParser.addRssFeed('/www/xml/example.xml'))
+        let subscriptionUrls = JSON.parse(localStorage.getItem('subscriptions'))
+        subscriptionUrls && subscriptionUrls.forEach(url => this.props.dispatch(FeedParser.addRssFeed(url)));
     }
 
     render() {
         let { subscriptions } = this.props;
         let subCards = subscriptions.map((sub, index) => <Card title={sub.title} text={sub.description} type={CardTypes.SUBSCRIPTION_ITEM} key={index} />)
-
-        console.debug('[YARRRRR]', this.props)
         return (
             <div>
                 <div style={{display: this.props.loading ? 'block' : 'none'}} id="ajax-preloader" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>

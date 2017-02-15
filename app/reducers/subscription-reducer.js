@@ -13,9 +13,10 @@ const InitialState = {
  */
 export const ActionTypes = {
     ADD_SUBSCRIPTION: 'ADD_SUBSCRIPTION',
-    SUBSCRIBERS_LOADING: 'SUBSCRIBERS_LOADING',
-    SUBSCRIBERS_LOADING_SUCCESS: 'SUBSCRIBERS_LOADING_SUCCESS',
-    SUBSCRIBERS_LOADING_FAILURE: 'SUBSCRIBERS_LOADING_FAILURE'
+    SUBSCRIPTIONS_LOADING: 'SUBSCRIPTIONS_LOADING',
+    SUBSCRIPTIONS_LOADING_SUCCESS: 'SUBSCRIPTIONS_LOADING_SUCCESS',
+    SUBSCRIPTIONS_LOADING_FAILURE: 'SUBSCRIPTIONS_LOADING_FAILURE',
+    SUBSCRIPTIONS_CLEAR: 'SUBSCRIPTIONS_CLEAR'
 }
 
 /**
@@ -31,18 +32,24 @@ export function subscriptionReducer(state = InitialState, action) {
                 subscriptions: [...state.subscriptions, action.payload]
             }
         }
-        case ActionTypes.SUBSCRIBERS_LOADING: {
+        case ActionTypes.SUBSCRIPTIONS_LOADING: {
             return {...state, loading: true}
         }
-        case ActionTypes.SUBSCRIBERS_LOADING_FAILURE: {
+        case ActionTypes.SUBSCRIPTIONS_LOADING_FAILURE: {
             return {...state, loading: false, error: action.payload}
         }
-        case ActionTypes.SUBSCRIBERS_LOADING_SUCCESS: {
+        case ActionTypes.SUBSCRIPTIONS_LOADING_SUCCESS: {
             return {
                 ...state,
                 subscriptions: action.payload,
                 loading: false,
                 loaded: true
+            }
+        }
+        case ActionTypes.SUBSCRIPTIONS_CLEAR: {
+            return {
+                ...state,
+                subscriptions: []
             }
         }
     }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { FeedParser } from '../core/parser.js'
 import { Card, CardTypes } from './basic/card.jsx'
 
