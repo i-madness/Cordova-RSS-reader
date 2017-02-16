@@ -7,7 +7,7 @@ module.exports = {
     devtool: debug ? "inline-sourcemap" : null,
     entry: "./application.js",
     output: {
-        path: __dirname,/* + "/js",*/
+        path: __dirname + "/js",
         filename: "bundle.min.js"
     },
     plugins: debug ? [] : [
