@@ -49,3 +49,27 @@
 .card-badge::after {
   background: #4059ff !important;
 }
+
+.input-group {
+  width: 100%;
+}
+
+.form-footer {
+  text-align: right;
+  width: 100%;
+}
+
+.field-name {
+  margin-right: 10px;
+  font-size: 14pt;
+}
+
+.sidenav-icon {
+  margin-right: 10px;
+}
+
+.sidepan-header {
+  text-shadow: 2px 1px 6px black;
+  color: white;
+  background: linear-gradient(230deg, rgba(63,81,181,1) 0%, rgba(0,128,128,1) 100%);
+}

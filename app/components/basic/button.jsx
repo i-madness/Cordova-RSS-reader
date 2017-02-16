@@ -15,7 +15,7 @@ export class ButtonRippleRaised extends React.Component {
             )
         }
         return (
-            <button class={classes}>
+            <button onClick={this.props.onClick} class={classes}>
                 {this.props.text}
             </button>
         )

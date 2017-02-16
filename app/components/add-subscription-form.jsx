@@ -17,15 +17,45 @@ export class AddSubFormTitle extends React.Component {
 @connect(store => {
     return {
         loading: store.subscriptionReducer.loading,
+        error: store.subscriptionReducer.error,
         subscriptions: store.subscriptionReducer.subscriptions
     }
 })
 export class AddSubscriptionForm extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            newSubUrl: ''
+        }
+        this.handleNewSubUrlChange = this.handleNewSubUrlChange.bind(this)
+        this.handleAddBtnClick = this.handleAddBtnClick.bind(this)
+    }
+
+    handleNewSubUrlChange(event) {
+        this.state.newSubUrl = event.target.value
+    }
+
+    handleAddBtnClick(event) {
+        console.log(event)
+        this.props.dispatch(FeedParser.addRssFeed(this.state.newSubUrl))
+    }
+
     render() {
         return (
             <div>
-                <ButtonRippleRaised text="Добавить" colored={true} />
-                <ButtonRippleRaised text="Отмена" navPath="/"/>
+                <div class="form-main">
+                    <div class="input-group">
+                        <span class="field-name">URL канала</span>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="channel-url" type="url" onChange={this.handleNewSubUrlChange}/>
+                            <label class="mdl-textfield__label" for="channel-url"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <ButtonRippleRaised text="Добавить" onClick={this.handleAddBtnClick} colored={true} />
+                    <ButtonRippleRaised text="Отмена" navPath="/" />
+                </div>
             </div>
         )
     }

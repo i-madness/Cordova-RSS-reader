@@ -26,10 +26,15 @@ module.exports = {
                     plugins: ['react-html-attrs', 'transform-decorators-legacy', 'transform-class-properties'],
                 }
             },
-            { 
-                test: /\.css$/, 
+            {
+                test: /\.css$/,
                 exclude: /(node_modules|bower_components)/,
-                loader: "style-loader!css-loader" 
+                loader: "style-loader!css-loader"
+            },
+            {
+                test: /\.(png|jpg)$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'url-loader'
             }
         ]
     },
