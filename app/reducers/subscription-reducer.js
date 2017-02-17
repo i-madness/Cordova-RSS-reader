@@ -33,10 +33,10 @@ export function subscriptionReducer(state = InitialState, action) {
             }
         }
         case ActionTypes.SUBSCRIPTIONS_LOADING: {
-            return {...state, loading: true, loaded: false}
+            return { ...state, loading: true, loaded: false, error: true }
         }
         case ActionTypes.SUBSCRIPTIONS_LOADING_FAILURE: {
-            return {...state, loading: false, error: action.payload}
+            return { ...state, loading: false, error: action.payload }
         }
         case ActionTypes.SUBSCRIPTIONS_LOADING_SUCCESS: {
             return {

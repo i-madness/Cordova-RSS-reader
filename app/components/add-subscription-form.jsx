@@ -17,6 +17,7 @@ export class AddSubFormTitle extends React.Component {
 @connect(store => {
     return {
         loading: store.subscriptionReducer.loading,
+        loaded: store.subscriptionReducer.loaded,
         error: store.subscriptionReducer.error,
         subscriptions: store.subscriptionReducer.subscriptions
     }
@@ -36,8 +37,10 @@ export class AddSubscriptionForm extends React.Component {
     }
 
     handleAddBtnClick(event) {
-        console.log(event)
         this.props.dispatch(FeedParser.addRssFeed(this.state.newSubUrl))
+        /*if (!this.props.error) {
+            history.back()
+        }*/        
     }
 
     render() {

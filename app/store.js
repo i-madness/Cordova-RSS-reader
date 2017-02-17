@@ -6,7 +6,12 @@ import reducer from './reducers/index.js'
 
 const middleware = applyMiddleware(promise(), thunk, logger())
 
-const store = 
+const store =
       window.store = createStore(reducer, middleware) // dev shenanigans
+
+store.subscribe(() => {
+      let subscriptions = store.getState().subscriptionReducer.subscriptions.map(sub => sub.url);
+      localStorage.setItem('subscriptions', JSON.stringify(subscriptions))
+})
 
 export default store
