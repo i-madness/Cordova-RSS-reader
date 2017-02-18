@@ -4,6 +4,8 @@ import Utils from './utils.js'
 import { ActionTypes as SubActionTypes } from '../reducers/subscription-reducer.js'
 import { ActionTypes as FeedActionTypes } from '../reducers/feed-reducer.js'
 
+let fetch = window.fetch || cordovaFetch
+
 /**
  * Инстанс парсера XML-документов для анализа контента RSS-лент
  */
@@ -86,6 +88,9 @@ export const FeedParser = (function () {
          */
         addRssFeed: (url) =>
             dispatch => {
+                if (!url) {
+                    return dispatch({ type: SubActionTypes.SUBSCRIPTIONS_LOADING_FAILURE, payload: 'Поле "URL канала" не может быть пустым' })
+                }
                 dispatch({ type: SubActionTypes.SUBSCRIPTIONS_LOADING })
                 fetch(url)
                     .then(response => response.text())

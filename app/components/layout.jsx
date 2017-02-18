@@ -46,10 +46,14 @@ export default class Layout extends React.Component {
                         {body}
                     </div>
                 </main>
+                <div id="snackbar-message" class="mdl-js-snackbar mdl-snackbar">
+                    <div class="mdl-snackbar__text"></div>
+                    <button class="mdl-snackbar__action" type="button"></button>
+                </div>
             </div>
         )
     }
-    
+
     hideDrawer() {
         let layout = document.querySelector('.mdl-layout')
         layout.MaterialLayout.toggleDrawer()

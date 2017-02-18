@@ -31,7 +31,6 @@ export class Feed extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         let { entries } = this.props
         let entryCards = entries.map((item, index) => {
             //let imageUrls = item.description.match(/<img.*\W+\/>/i).map(str => str.match(/\/\/.*\.[a-z]*/g)[0])
