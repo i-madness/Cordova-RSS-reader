@@ -63,12 +63,11 @@ export const FeedParser = (function () {
                                     return null;
                                 }).filter(item => !!item)
                                 commonResult = [...commonResult, ...result]
-                                //return Promise.resolve(result);
                             } catch (err) {
                                 return Promise.reject('text:\n' + txt);
                             }
                         }
-                        commonResult.sort((item1, item2) => moment(item1.timestamp, MOMENT_FORMAT).diff(moment(item2.timestamp, MOMENT_FORMAT)))
+                        commonResult.sort((item1, item2) => - moment(item1.timestamp, MOMENT_FORMAT).diff(moment(item2.timestamp, MOMENT_FORMAT)))
                         return Promise.resolve(commonResult)
                     })
                     .then(result => dispatch({ type: FeedActionTypes.ENTRIES_LOADING_SUCCESS, payload: result }))

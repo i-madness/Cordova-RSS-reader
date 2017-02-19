@@ -29,7 +29,7 @@ export class Feed extends React.Component {
         let entryCards = entries.map((item, index) => {
             // заменяем теги <br> на абзацы
             let cardContent = item.description.split(/<br\W*\/>/).map((paragraph, pIndex) => <Paragraph content={paragraph} key={pIndex} />) // <p key={pIndex}>{paragraph}</p>
-            return <Card type={CardTypes.FEED_ITEM} title={item.title} text={cardContent} img={item.img} key={index} />
+            return <Card type={CardTypes.FEED_ITEM} title={item.title} text={cardContent} link={item.link} img={item.img} key={index} />
         })
         return (
             <div>

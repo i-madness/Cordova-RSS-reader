@@ -57,7 +57,7 @@ export class Card extends React.Component {
             <div class="card-wrapper">
                 <div class={" mdl-card mdl-shadow--2dp " + this.type} >
                     <div class={"mdl-card__title"} style={this.extraTitleCss}>
-                        <h2 class={"mdl-card__title-text"}>{this.props.title}</h2>
+                        <a class="card-link-anchor" href={this.props.link}><h2 class={"mdl-card__title-text"}>{this.props.title}</h2></a>
                     </div>
                     <div class={"mdl-card__supporting-text"}>
                         {this.props.text}
