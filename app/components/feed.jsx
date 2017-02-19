@@ -4,13 +4,6 @@ import { FeedParser } from '../core/parser.js'
 import { Card, CardTypes } from './basic/card.jsx'
 
 /**
- * Заголовок страницы ленты
- */
-export class FeedTitle extends React.Component {
-    render() { return (<span class="mdl-layout-title">Лента</span>) }
-}
-
-/**
  * Комопнент, отвечающий за список каналов
  */
 @connect(store => {

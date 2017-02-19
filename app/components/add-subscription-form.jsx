@@ -5,13 +5,6 @@ import Utils from '../core/utils'
 import { ButtonRippleRaised } from './basic/button.jsx'
 
 /**
- * Заголовок страницы с формой добавления новой подписки
- */
-export class AddSubFormTitle extends React.Component {
-    render() { return (<span class="mdl-layout-title">Список RSS-лент</span>) }
-}
-
-/**
  * Форма добавления новой подписки. 
  * В идеале должна была быть модальным диалогом, но что-то пошло не так и теперь она занимает целую страницу...
  */

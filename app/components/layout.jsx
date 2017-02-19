@@ -6,12 +6,19 @@ import React from 'react'
 import { Link } from 'react-router'
 import Snackbar from './basic/snackbar.jsx'
 
+const PAGE_TITLE_MAP = {
+    '': 'Список RSS-лент',
+    'feed': 'Лента',
+    'addSub': 'Добавление новой подписки',
+    'settings': 'Настройки'
+}
 /**
  * Список навигационных ссылок
  */
 const NAV_LINKS = [
     { title: 'Список подписок', to: '/', icon: 'view_list' },
-    { title: 'Лента', to: 'feed', icon: 'rss_feed' }
+    { title: 'Лента', to: 'feed', icon: 'rss_feed' },
+    { title: 'Настройки', to: 'settings', icon: 'settings' }
 ]
 
 /**
@@ -19,7 +26,8 @@ const NAV_LINKS = [
  */
 export default class Layout extends React.Component {
     render() {
-        const { title, body } = this.props
+        //const { body } = this.props
+        const title = PAGE_TITLE_MAP[window.location.hash.replace('#/', '')]
         let navLinks = NAV_LINKS.map((link, index) =>
             <Link to={link.to} key={index} className={'mdl-navigation__link'} onMouseUp={this.hideDrawer.bind(this)}><i class="sidenav-icon material-icons">{link.icon}</i>{link.title}</Link>)
         // отображаем кнопку "Добавить новую подписку" в зависимости от текущего расположения
@@ -31,7 +39,7 @@ export default class Layout extends React.Component {
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header">
                     <div className="mdl-layout__header-row">
-                        {title}
+                        <span class="mdl-layout-title">{title}</span>
                         <div class="mdl-layout-spacer"></div>
                         {addSubBtn}
                     </div>
@@ -44,7 +52,7 @@ export default class Layout extends React.Component {
                 </div>
                 <main className="mdl-layout__content">
                     <div className="page-content">
-                        {body}
+                        {this.props.children}
                     </div>
                 </main>
                 <Snackbar id="snackbar-message-success" />
