@@ -4,6 +4,7 @@ import '../css/index.css'
 import '../../node_modules/material-design-lite/material.js'
 import React from 'react'
 import { Link } from 'react-router'
+import Snackbar from './basic/snackbar.jsx'
 
 /**
  * Список навигационных ссылок
@@ -46,10 +47,8 @@ export default class Layout extends React.Component {
                         {body}
                     </div>
                 </main>
-                <div id="snackbar-message" class="mdl-js-snackbar mdl-snackbar">
-                    <div class="mdl-snackbar__text"></div>
-                    <button class="mdl-snackbar__action" type="button"></button>
-                </div>
+                <Snackbar id="snackbar-message-success" />
+                <Snackbar id="snackbar-message-error" />
             </div>
         )
     }

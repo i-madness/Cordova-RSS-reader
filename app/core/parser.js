@@ -96,7 +96,7 @@ export const FeedParser = (function () {
                     .then(response => response.text())
                     .then(txt => {
                         if (!txt.includes('<?xml') && !txt.includes('<rss version=')) {
-                            return Promise.reject('запрашиваемый ресурс "' + url + '" не является RSS-лентой')
+                            return Promise.reject('Запрашиваемый ресурс "' + url + '" не является RSS-лентой')
                         }
                         let doc = PARSER_INSTANCE.parseFromString(txt, "text/xml");
                         return Promise.resolve({

@@ -29,11 +29,12 @@ export function subscriptionReducer(state = InitialState, action) {
                 ...state,
                 loaded: true,
                 loading: false,
-                subscriptions: [...state.subscriptions, action.payload]
+                subscriptions: [...state.subscriptions, action.payload],
+                error: null
             }
         }
         case ActionTypes.SUBSCRIPTIONS_LOADING: {
-            return { ...state, loading: true, loaded: false }
+            return { ...state, loading: true, loaded: false, error: null }
         }
         case ActionTypes.SUBSCRIPTIONS_LOADING_FAILURE: {
             return { ...state, loading: false, error: action.payload }

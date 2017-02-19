@@ -3,6 +3,28 @@
  */
 export default class Utils {
     /**
+     * Пытается выполнить действие до тех пор, пока не будет достигнуто определённое условие.
+     * Является тщательно закаррированным костылём.
+     * Пример использования: Utils.tryUntil( param => doSomething(param) )( 100 )( result => result === 42 )
+     * @param callback  {Function} функция, которая выполняется в случае успеха
+     * @param time      {Number} время интервала выполнения функции
+     * @param predicate {Function} функция проверки условия
+     */
+    static tryUntil = (callback) => (time) => (predicate) => {
+        let intervalId = setInterval(() => {
+            try {
+                if (predicate()) {
+                    callback()
+                    clearInterval(intervalId)
+                }
+            } catch (err) {
+                clearInterval(intervalId)
+            }
+
+        })
+    }
+
+    /**
      * Регулярки для чистки респонса от ненужных тегов
      */
     static DIRTY_REGEXPS = [

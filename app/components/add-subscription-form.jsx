@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { FeedParser } from '../core/parser.js'
+import Utils from '../core/utils'
 import { ButtonRippleRaised } from './basic/button.jsx'
 
 /**
@@ -38,9 +39,14 @@ export class AddSubscriptionForm extends React.Component {
 
     handleAddBtnClick(event) {
         this.props.dispatch(FeedParser.addRssFeed(this.state.newSubUrl))
-        /*if (!this.props.error) {
-            history.back()
-        }*/        
+        let cb = () => {
+            let snackbar = document.querySelector('#snackbar-message-success')
+            snackbar.MaterialSnackbar.showSnackbar({ message: 'Подписка добавлена' })
+            window.location.hash = '#'
+        }
+        Utils.tryUntil(cb)(100)(() => this.props.error === null)
+
+        //}, 2000)
     }
 
     render() {
@@ -48,9 +54,9 @@ export class AddSubscriptionForm extends React.Component {
             <div>
                 <div class="form-main">
                     <div class="input-group">
-                        <span class="field-name">URL канала</span>
+                        <span class="field-name">Введите URL канала</span>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="channel-url" type="url" onChange={this.handleNewSubUrlChange}/>
+                            <input class="mdl-textfield__input" type="text" id="channel-url" type="url" onChange={this.handleNewSubUrlChange} />
                             <label class="mdl-textfield__label" for="channel-url"></label>
                         </div>
                     </div>
