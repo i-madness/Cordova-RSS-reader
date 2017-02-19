@@ -22,6 +22,7 @@ export default class Utils {
             }
 
         })
+        setTimeout(() => clearInterval(intervalId), 10000)
     }
 
     /**

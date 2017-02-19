@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+
 /**
  * Компонент оповещений ("тостов"), предлагаемый библеотекой Material Design Lite
  */

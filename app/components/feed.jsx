@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { FeedParser } from '../core/parser.js'
 import { Card, CardTypes } from './basic/card.jsx'
+import Paragraph from './basic/paragraph.jsx'
 
 /**
  * Комопнент, отвечающий за список каналов
@@ -26,9 +27,8 @@ export class Feed extends React.Component {
     render() {
         let { entries } = this.props
         let entryCards = entries.map((item, index) => {
-            //let imageUrls = item.description.match(/<img.*\W+\/>/i).map(str => str.match(/\/\/.*\.[a-z]*/g)[0])
             // заменяем теги <br> на абзацы
-            let cardContent = item.description.split(/<br\W*\/>/).map((paragraph, parIndex) => <p key={parIndex}>{paragraph}</p>)
+            let cardContent = item.description.split(/<br\W*\/>/).map((paragraph, pIndex) => <Paragraph content={paragraph} key={pIndex} />) // <p key={pIndex}>{paragraph}</p>
             return <Card type={CardTypes.FEED_ITEM} title={item.title} text={cardContent} img={item.img} key={index} />
         })
         return (
