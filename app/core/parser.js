@@ -57,10 +57,7 @@ export const FeedParser = (function () {
                                     let link = Utils.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'link').innerHTML)
                                     let timestamp = Utils.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'pubDate').innerHTML)
                                     let description = Utils.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'description').innerHTML)
-                                    if (title && link && description) {
-                                        return new FeedItem(title, description, timestamp, link);
-                                    }
-                                    return null;
+                                    return new FeedItem(title, description, timestamp, link);
                                 }).filter(item => !!item)
                                 commonResult = [...commonResult, ...result]
                             } catch (err) {

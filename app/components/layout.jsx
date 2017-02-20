@@ -26,7 +26,6 @@ const NAV_LINKS = [
  */
 export default class Layout extends React.Component {
     render() {
-        //const { body } = this.props
         const title = PAGE_TITLE_MAP[window.location.hash.replace('#/', '')]
         let navLinks = NAV_LINKS.map((link, index) =>
             <Link to={link.to} key={index} className={'mdl-navigation__link'} onMouseUp={() => this.toggleDrawer()}>
