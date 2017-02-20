@@ -31,8 +31,9 @@
   color: #1a1a1b !important
 }
 
-.mdl-card__supporting-text {
-  color: rgba(0, 0, 0, 0.92);
+.mdl-card__supporting-text, .mdl-card__supporting-text > p {
+  color: rgba(0, 0, 0, 0.92) !important;
+  font-size: 13pt !important;
 }
 
 .mdl-textfield {

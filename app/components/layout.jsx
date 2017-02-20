@@ -7,9 +7,9 @@ import { Link } from 'react-router'
 import Snackbar from './basic/snackbar.jsx'
 
 const PAGE_TITLE_MAP = {
-    '': 'Список RSS-лент',
+    '': 'Список RSS-каналов',
     'feed': 'Лента',
-    'addSub': 'Добавление новой подписки',
+    'addSub': 'Добавление нового канала',
     'settings': 'Настройки'
 }
 /**
@@ -29,7 +29,10 @@ export default class Layout extends React.Component {
         //const { body } = this.props
         const title = PAGE_TITLE_MAP[window.location.hash.replace('#/', '')]
         let navLinks = NAV_LINKS.map((link, index) =>
-            <Link to={link.to} key={index} className={'mdl-navigation__link'} onMouseUp={this.hideDrawer.bind(this)}><i class="sidenav-icon material-icons">{link.icon}</i>{link.title}</Link>)
+            <Link to={link.to} key={index} className={'mdl-navigation__link'} onMouseUp={() => this.toggleDrawer()}>
+                <i class="sidenav-icon material-icons">{link.icon}</i>{link.title}
+            </Link>
+        )
         // отображаем кнопку "Добавить новую подписку" в зависимости от текущего расположения
         let addSubBtn = this.props.location.pathname === '/' ? (
             <d><Link id="add-sub-link" class="mdl-navigation__link" to="addSub"><i class="material-icons">playlist_add</i></Link>
@@ -37,6 +40,7 @@ export default class Layout extends React.Component {
         ) : null
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+                <div onTouchEnd={() => this.toggleDrawer()} style={{ position: 'absolute', height: '100%', width: '30px', zIndex: 1000 }}></div>
                 <header className="mdl-layout__header">
                     <div className="mdl-layout__header-row">
                         <span class="mdl-layout-title">{title}</span>
@@ -61,8 +65,9 @@ export default class Layout extends React.Component {
         )
     }
 
-    hideDrawer() {
+    toggleDrawer() {
         let layout = document.querySelector('.mdl-layout')
         layout.MaterialLayout.toggleDrawer()
     }
+
 }

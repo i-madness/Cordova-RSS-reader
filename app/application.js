@@ -9,6 +9,7 @@ import Layout from './components/layout.jsx'
 import { ChannelList } from './components/channel-list.jsx'
 import { Feed } from './components/feed.jsx'
 import { AddSubscriptionForm } from './components/add-subscription-form.jsx'
+import SettingsPage from './components/settings.jsx'
 
 /**
  * Главный DOM-элемент, в котором рендерится всё приложение
@@ -25,7 +26,7 @@ ReactDom.render(
                 <IndexRoute component={ChannelList}></IndexRoute>
                 <Route path="feed" component={Feed}></Route>
                 <Route path="addSub" component={AddSubscriptionForm}></Route>
-                {/*<Route path="settings" component={SettingsPage}></Route>*/}
+                <Route path="settings" component={SettingsPage}></Route>
             </Route>
         </Router>
     </Provider>,

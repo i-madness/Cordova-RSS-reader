@@ -38,8 +38,6 @@ export class AddSubscriptionForm extends React.Component {
             window.location.hash = '#'
         }
         Utils.tryUntil(cb)(100)(() => this.props.error === null)
-
-        //}, 2000)
     }
 
     render() {
