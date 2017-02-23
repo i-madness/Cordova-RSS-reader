@@ -10,6 +10,7 @@ import { ChannelList } from './components/channel-list.jsx'
 import { Feed } from './components/feed.jsx'
 import { AddSubscriptionForm } from './components/add-subscription-form.jsx'
 import SettingsPage from './components/settings.jsx'
+import Favorites from './components/favorites.jsx'
 
 /**
  * Главный DOM-элемент, в котором рендерится всё приложение
@@ -27,6 +28,7 @@ ReactDom.render(
                 <Route path="feed" component={Feed}></Route>
                 <Route path="addSub" component={AddSubscriptionForm}></Route>
                 <Route path="settings" component={SettingsPage}></Route>
+                <Route path="favorites" component={Favorites}></Route>
             </Route>
         </Router>
     </Provider>,

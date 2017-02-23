@@ -4,6 +4,7 @@
 const InitialState = {
     entries: [],
     hiddenEntries: [],
+    favorites: JSON.parse(localStorage.getItem('favoriteEntries')) || [],
     loading: false,
     loaded: true,
     error: null
@@ -17,7 +18,9 @@ export const ActionTypes = {
     ENTRIES_LOADING_SUCCESS: 'ENTRIES_LOADING_SUCCESS',
     ENTRIES_LOADING_FAILURE: 'ENTRIES_LOADING_FAILURE',
     ENTRIES_CHANNEL_FILTER: 'ENTRIES_CHANNEL_FILTER',
-    ENTRY_HIDE: 'ENTRY_HIDE'
+    ENTRY_HIDE: 'ENTRY_HIDE',
+    ADD_TO_FAVORITES: 'ADD_TO_FAVORITES',
+    REMOVE_FROM_FAVORITES: 'REMOVE_FROM_FAVORITES'
 }
 
 /**
@@ -51,6 +54,21 @@ export function feedReducer(state = InitialState, action) {
                 ...state,
                 hiddenEntries: [...state.hiddenEntries ,state.entries.find(entry => entry.title === action.payload)],
                 entries: state.entries.filter(entry => entry.title !== action.payload),
+            }
+        }
+        case ActionTypes.ADD_TO_FAVORITES: {
+            if (state.favorites.find(fav => fav.title === action.payload.title)) {
+                return state
+            }
+            return {
+                ...state,
+                favorites: [...state.favorites, action.payload]
+            }
+        }
+        case ActionTypes.REMOVE_FROM_FAVORITES: {
+            return {
+                ...state,
+                favorites: state.favorites.filter(entry => entry.title !== action.payload)
             }
         }
     }

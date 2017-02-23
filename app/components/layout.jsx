@@ -10,7 +10,8 @@ const PAGE_TITLE_MAP = {
     '': 'Список RSS-каналов',
     'feed': 'Лента',
     'addSub': 'Добавление нового канала',
-    'settings': 'Настройки'
+    'settings': 'Настройки',
+    'favorites': 'Избранное'
 }
 /**
  * Список навигационных ссылок
@@ -18,7 +19,8 @@ const PAGE_TITLE_MAP = {
 const NAV_LINKS = [
     { title: 'Список подписок', to: '/', icon: 'view_list' },
     { title: 'Лента', to: 'feed', icon: 'rss_feed' },
-    { title: 'Настройки', to: 'settings', icon: 'settings' }
+    { title: 'Избранное', to: 'favorites', icon: 'star' },
+    { title: 'Настройки', to: 'settings', icon: 'settings' },
 ]
 
 /**

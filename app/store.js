@@ -17,6 +17,7 @@ store.subscribe(() => {
     let state = store.getState()
     let subscriptions = state.subscriptionReducer.subscriptions.map(sub => sub.url)
     localStorage.setItem('subscriptions', JSON.stringify(subscriptions))
+    localStorage.setItem('favoriteEntries', JSON.stringify(state.feedReducer.favorites))
     let error = state.subscriptionReducer.error || state.feedReducer.error
     if (error && !errorWasShown) {
         let snackbar = document.querySelector('#snackbar-message-error')

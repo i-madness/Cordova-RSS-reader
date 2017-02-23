@@ -16,7 +16,13 @@ export const CardTypes = {
     },
     FEED_ITEM: {
         items: [
-            { text: 'Скрыть', action: target => store.dispatch({ type: FeedActionTypes.ENTRY_HIDE, payload: target.title }) }
+            { text: 'Скрыть', action: target => store.dispatch({ type: FeedActionTypes.ENTRY_HIDE, payload: target.title }) },
+            { text: 'Добавить в избранное', action: target => store.dispatch({ type: FeedActionTypes.ADD_TO_FAVORITES, payload: target.feedItem }) }
+        ]
+    },
+    FAVORITES_ITEM: {
+        items: [
+            { text: 'Удалить из избранного', action: target => store.dispatch({ type: FeedActionTypes.REMOVE_FROM_FAVORITES, payload: target.title }) }
         ]
     }
 }
@@ -47,6 +53,10 @@ export class Card extends React.Component {
         this.extraTitleCss = {}
         switch (this.type) {
             case CardTypes.FEED_ITEM: {
+                this.extraTitleCss['backgroundColor'] = Utils.randomColor()
+                break;
+            }
+            case CardTypes.FAVORITES_ITEM: {
                 this.extraTitleCss['backgroundColor'] = Utils.randomColor()
                 break;
             }

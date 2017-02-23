@@ -26,13 +26,13 @@ export class Feed extends React.Component {
     }
 
     render() {
-        let { entries } = this.props
+        let { entries, hiddenEntries } = this.props
         let entryCards = entries
-            .filter(entry => hiddenEntries.find(hidden => hidden.title === entry.title))
+            //.filter(entry => hiddenEntries.find(hidden => hidden.title === entry.title))
             .map((item, index) => {
                 // заменяем теги <br> на абзацы
                 let cardContent = item.description.split(/<br\W*\/>/).map((paragraph, pIndex) => <Paragraph content={paragraph} key={pIndex} />)
-                return <Card type={CardTypes.FEED_ITEM} title={item.title} text={cardContent} link={item.link} img={item.img} key={index} />
+                return <Card type={CardTypes.FEED_ITEM} feedItem={item} title={item.title} text={cardContent} link={item.link} img={item.img} key={index} />
             })
         return (
             <div>
