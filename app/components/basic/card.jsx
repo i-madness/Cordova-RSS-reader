@@ -2,7 +2,8 @@ import React from 'react'
 import Utils from '../../core/utils.js'
 import Menu from './menu.jsx'
 import store from '../../store.js'
-import { ActionTypes } from '../../reducers/subscription-reducer.js'
+import { ActionTypes as SubActionTypes } from '../../reducers/subscription-reducer.js'
+import { ActionTypes as FeedActionTypes } from '../../reducers/feed-reducer.js'
 
 /**
  * Константа с возможными css-классами карточек
@@ -10,11 +11,13 @@ import { ActionTypes } from '../../reducers/subscription-reducer.js'
 export const CardTypes = {
     SUBSCRIPTION_ITEM: {
         items: [
-            { text: 'Удалить подписку', action: itemName => store.dispatch({type: ActionTypes.SUBSCRIPTIONS_DELETE, payload: itemName}) }
+            { text: 'Удалить подписку', action: target => store.dispatch({ type: SubActionTypes.SUBSCRIPTIONS_DELETE, payload: target.title }) }
         ]
     },
     FEED_ITEM: {
-        items: []
+        items: [
+            { text: 'Скрыть', action: target => store.dispatch({ type: FeedActionTypes.ENTRY_HIDE, payload: target.title }) }
+        ]
     }
 }
 
@@ -70,7 +73,7 @@ export class Card extends React.Component {
                     <div class="mdl-card__title" style={this.extraTitleCss}>
                         <a class="card-link-anchor" href={this.props.link}><h2 class="mdl-card__title-text">{this.props.title}</h2></a>
                         <div class="mdl-layout-spacer"></div>
-                        <Menu domId={menuId} options={menuItems} actionTarget={this.props.title} />
+                        <Menu domId={menuId} options={menuItems} actionTarget={this.props} />
                     </div>
                     <div class="mdl-card__supporting-text">
                         {this.props.text}

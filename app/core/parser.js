@@ -4,7 +4,7 @@ import Utils from './utils.js'
 import { ActionTypes as SubActionTypes } from '../reducers/subscription-reducer.js'
 import { ActionTypes as FeedActionTypes } from '../reducers/feed-reducer.js'
 
-let fetch = window.fetch || cordovaFetch
+let fetch = window.fetch || cordovaFetch || (() => 0)
 
 /**
  * Инстанс парсера XML-документов для анализа контента RSS-лент

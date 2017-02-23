@@ -3,6 +3,7 @@
  */
 const InitialState = {
     entries: [],
+    hiddenEntries: [],
     loading: false,
     loaded: true,
     error: null
@@ -15,7 +16,8 @@ export const ActionTypes = {
     ENTRIES_LOADING: 'ENTRIES_LOADING',
     ENTRIES_LOADING_SUCCESS: 'ENTRIES_LOADING_SUCCESS',
     ENTRIES_LOADING_FAILURE: 'ENTRIES_LOADING_FAILURE',
-    ENTRIES_CHANNEL_FILTER: 'ENTRIES_CHANNEL_FILTER'
+    ENTRIES_CHANNEL_FILTER: 'ENTRIES_CHANNEL_FILTER',
+    ENTRY_HIDE: 'ENTRY_HIDE'
 }
 
 /**
@@ -38,11 +40,17 @@ export function feedReducer(state = InitialState, action) {
                 error: null
             }
         }
-        // TODO: продумать, как заимплементить эту вещь в плане UI:
         case ActionTypes.ENTRIES_CHANNEL_FILTER: {
             return {
                 ...state,
                 entries: state.entries.filter(entry => entry.channel.title === action.payload)
+            }
+        }
+        case ActionTypes.ENTRY_HIDE: {
+            return {
+                ...state,
+                hiddenEntries: [...state.hiddenEntries ,state.entries.find(entry => entry.title === action.payload)],
+                entries: state.entries.filter(entry => entry.title !== action.payload),
             }
         }
     }
