@@ -7,7 +7,7 @@ import React from 'react'
 export default class Menu extends React.Component {
     render() {
         let { options, domId } = this.props
-        options = options.map((option, i) => <li class="mdl-menu__item" onClick={() => option.action()} key={i}>{option.text}</li>)
+        options = options.map((option, i) => <li class="mdl-menu__item" onClick={() => option.action(this.props.actionTarget)} key={i}>{option.text}</li>)
         domId = 'menu-btn' + domId
         return (
             <div>
@@ -16,11 +16,13 @@ export default class Menu extends React.Component {
                 </button>
                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for={domId}>
                     {options}
-                    <li class="mdl-menu__item">Some Action</li>
-                    <li class="mdl-menu__item">Another Action</li>
                 </ul>
             </div>
         )
+    }
+
+    componentDidMount() {
+        componentHandler.upgradeDom('MaterialMenu', 'mdl-menu')
     }
 }
 

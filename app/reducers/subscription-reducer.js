@@ -16,6 +16,7 @@ export const ActionTypes = {
     SUBSCRIPTIONS_LOADING: 'SUBSCRIPTIONS_LOADING',
     SUBSCRIPTIONS_LOADING_SUCCESS: 'SUBSCRIPTIONS_LOADING_SUCCESS',
     SUBSCRIPTIONS_LOADING_FAILURE: 'SUBSCRIPTIONS_LOADING_FAILURE',
+    SUBSCRIPTIONS_DELETE: 'SUBSCRIPTIONS_DELETE',
     SUBSCRIPTIONS_CLEAR: 'SUBSCRIPTIONS_CLEAR'
 }
 
@@ -52,6 +53,13 @@ export function subscriptionReducer(state = InitialState, action) {
             return {
                 ...state,
                 subscriptions: []
+            }
+        }
+        case ActionTypes.SUBSCRIPTIONS_DELETE: {
+            let newSubs = state.subscriptions.filter(sub => sub.title !== action.payload)
+            return {
+                ...state,
+                subscriptions: newSubs
             }
         }
     }

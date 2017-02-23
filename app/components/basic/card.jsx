@@ -1,18 +1,20 @@
 import React from 'react'
 import Utils from '../../core/utils.js'
 import Menu from './menu.jsx'
+import store from '../../store.js'
+import { ActionTypes } from '../../reducers/subscription-reducer.js'
 
 /**
  * Константа с возможными css-классами карточек
  */
 export const CardTypes = {
-    SUBSCRIPTION_ITEM: { 
+    SUBSCRIPTION_ITEM: {
         items: [
-            { text: 'Удалить подписку', action: () => console.warn('I AM THE DANGER') }
+            { text: 'Удалить подписку', action: itemName => store.dispatch({type: ActionTypes.SUBSCRIPTIONS_DELETE, payload: itemName}) }
         ]
     },
-    FEED_ITEM: { 
-        items: [] 
+    FEED_ITEM: {
+        items: []
     }
 }
 
@@ -38,7 +40,7 @@ export class CardActions extends React.Component {
 export class Card extends React.Component {
     constructor(props) {
         super(props);
-        this.type = props.type// ? CardTypes[props.type] : "";
+        this.type = props.type // ? CardTypes[props.type] : "";
         this.extraTitleCss = {}
         switch (this.type) {
             case CardTypes.FEED_ITEM: {
@@ -60,7 +62,7 @@ export class Card extends React.Component {
     }
 
     render() {
-        let menuItems = this.type.items //[{ text: 'Waaaat', action: () => console.warn('I AM THE DANGER') }]
+        let menuItems = this.type.items
         let menuId = Math.floor(Math.random() * 1000).toString()
         return (
             <div class="card-wrapper">
@@ -68,7 +70,7 @@ export class Card extends React.Component {
                     <div class="mdl-card__title" style={this.extraTitleCss}>
                         <a class="card-link-anchor" href={this.props.link}><h2 class="mdl-card__title-text">{this.props.title}</h2></a>
                         <div class="mdl-layout-spacer"></div>
-                        <Menu domId={menuId} options={menuItems} />
+                        <Menu domId={menuId} options={menuItems} actionTarget={this.props.title} />
                     </div>
                     <div class="mdl-card__supporting-text">
                         {this.props.text}
