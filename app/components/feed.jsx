@@ -25,7 +25,9 @@ export class Feed extends React.Component {
     render() {
         let { entries, hiddenEntries } = this.props
         let entryCards = entries
-            //.filter(entry => hiddenEntries.find(hidden => hidden.title === entry.title))
+            .filter(entry => !hiddenEntries.length || !hiddenEntries.find(hidden => {
+                return hidden.title === entry.title
+            }))
             .map((item, index) => {
                 // заменяем теги <br> на абзацы
                 let cardContent = item.description.split(/<br\W*\/>/).map((paragraph, pIndex) => <Paragraph content={paragraph} key={pIndex} />)

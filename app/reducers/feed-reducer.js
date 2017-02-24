@@ -40,7 +40,7 @@ export function feedReducer(state = InitialState, action) {
         }
         case ActionTypes.ENTRIES_LOADING_SUCCESS: {
             let newEntries = _.uniqBy([...state.entries, ...action.payload], 'title')
-            newEntries.sort((item1, item2) => item1.timestamp - item2.timestamp)//moment(item1.timestamp, MOMENT_FORMAT).diff(moment(item2.timestamp, MOMENT_FORMAT)))
+            newEntries.sort((item1, item2) => - item1.timestamp - item2.timestamp)//moment(item1.timestamp, MOMENT_FORMAT).diff(moment(item2.timestamp, MOMENT_FORMAT)))
             return { 
                 ...state, 
                 loading: false, 
