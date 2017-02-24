@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { FeedParser } from '../core/parser.js'
+import UpdateScheduler from '../core/scheduler.js'
 import { Card, CardTypes } from './basic/card.jsx'
+import { ButtonRippleRounded } from './basic/button.jsx'
 import Paragraph from './basic/paragraph.jsx'
 
 /**
@@ -22,6 +24,10 @@ export class Feed extends React.Component {
         channels && this.props.dispatch(FeedParser.parseSubscription(channels))
     }
 
+    refresh() {
+        UpdateScheduler.restart()
+    }
+
     render() {
         let { entries, hiddenEntries } = this.props
         let entryCards = entries
@@ -36,6 +42,9 @@ export class Feed extends React.Component {
         return (
             <div>
                 {entryCards}
+                <ButtonRippleRounded id="refresh-feed-btn" onClick={() => this.refresh()} style={{ position: 'fixed', bottom: '15px', right: '15px', zIndex: '1000', border: '#fff 2px solid' }}>
+                    <i class="material-icons">refresh</i>
+                </ButtonRippleRounded>
             </div>
         )
     }
