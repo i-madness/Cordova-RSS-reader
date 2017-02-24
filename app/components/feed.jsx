@@ -16,9 +16,6 @@ import Paragraph from './basic/paragraph.jsx'
     }
 })
 export class Feed extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     componentWillMount() {
         let { channels } = this.props

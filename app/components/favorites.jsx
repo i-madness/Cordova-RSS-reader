@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { FeedParser } from '../core/parser.js'
 import { Card, CardTypes } from './basic/card.jsx'
 import Paragraph from './basic/paragraph.jsx'
 
 /**
- * Комопнент, отвечающий за список каналов
+ * Страница со списком избранных записей
  */
 @connect(store => {
     return {

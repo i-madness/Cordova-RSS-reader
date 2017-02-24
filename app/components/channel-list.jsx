@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { FeedParser } from '../core/parser.js'
 import { Card, CardTypes } from './basic/card.jsx'
+import { ButtonRippleRounded } from './basic/button.jsx'
 
 /**
  * Заголовок страницы со списком каналов
@@ -22,17 +23,16 @@ export class ChannelListTitle extends React.Component {
     }
 })
 export class ChannelList extends React.Component {
-    componentWillMount() {
-
-    }
-
     render() {
         let { subscriptions } = this.props;
         let subCards = subscriptions.map((sub, index) => <Card title={sub.title} text={sub.description} type={CardTypes.SUBSCRIPTION_ITEM} key={index} />)
         return (
             <div>
-                <div style={{display: this.props.loading ? 'block' : 'none'}} id="ajax-preloader" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+                <div style={{ display: this.props.loading ? 'block' : 'none' }} id="ajax-preloader" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
                 {subCards}
+                <ButtonRippleRounded id="add-sub-link" navPath="addSub" style={{ position: 'fixed', bottom: '15px', right: '15px', zIndex: '1000', border: '#fff 2px solid' }}>
+                    <i class="material-icons">add</i>
+                </ButtonRippleRounded>
             </div>
         )
     }

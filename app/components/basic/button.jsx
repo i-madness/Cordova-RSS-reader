@@ -21,3 +21,21 @@ export class ButtonRippleRaised extends React.Component {
         )
     }
 }
+
+export class ButtonRippleRounded extends React.Component {
+    render() {
+        let classes = 'mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-color--indigo'
+        if (this.props.navPath) {
+            return (
+                <Link to={this.props.navPath} style={this.props.style} class={classes}>
+                    {this.props.text || this.props.children}
+                </Link>
+            )
+        }
+        return (
+            <button onClick={this.props.onClick} style={this.props.style} class={classes}>
+                {this.props.text || this.props.children}
+            </button>
+        )
+    }
+}
