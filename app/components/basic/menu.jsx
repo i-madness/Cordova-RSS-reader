@@ -8,7 +8,6 @@ export default class Menu extends React.Component {
     render() {
         let { options, domId } = this.props
         options = options.map((option, i) => <li class="mdl-menu__item" onClick={() => option.action(this.props.actionTarget)} key={i}>{option.text}</li>)
-        domId = 'menu-btn' + domId
         return (
             <div>
                 <button id={domId} class="mdl-button mdl-js-button mdl-button--icon">

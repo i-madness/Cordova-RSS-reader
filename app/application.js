@@ -3,6 +3,8 @@ import ReactDom from 'react-dom'
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import { FeedParser } from './core/parser.js'
+import UpdateScheduler from './core/scheduler.js'
+import Utils from './core/utils.js'
 
 import store from './store'
 import Layout from './components/layout.jsx'
@@ -18,16 +20,18 @@ import Favorites from './components/favorites.jsx'
 const APP_CONTAINER = document.querySelector('#app')
 
 let subscriptionUrls = JSON.parse(localStorage.getItem('subscriptions'))
-subscriptionUrls && subscriptionUrls.forEach(url => store.dispatch(FeedParser.addRssFeed(url)));
+subscriptionUrls && subscriptionUrls.forEach(url => store.dispatch(FeedParser.addRssFeed(url)))
+Utils.tryUntil(UpdateScheduler.update)(50)(() => !!store.getState().subscriptionReducer.subscriptions.length)
+UpdateScheduler.scheduleCheckingTask()
 
 ReactDom.render(
     <Provider store={store}>
         <Router history={hashHistory}>
             <Route path="/" component={Layout} >
                 <IndexRoute component={ChannelList}></IndexRoute>
-                <Route path="feed" component={Feed}></Route>
-                <Route path="addSub" component={AddSubscriptionForm}></Route>
-                <Route path="settings" component={SettingsPage}></Route>
+                <Route path="feed"      component={Feed}></Route>
+                <Route path="addSub"    component={AddSubscriptionForm}></Route>
+                <Route path="settings"  component={SettingsPage}></Route>
                 <Route path="favorites" component={Favorites}></Route>
             </Route>
         </Router>

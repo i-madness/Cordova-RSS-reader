@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import Utils from '../../core/utils.js'
 import Menu from './menu.jsx'
 import store from '../../store.js'
@@ -6,12 +7,17 @@ import { ActionTypes as SubActionTypes } from '../../reducers/subscription-reduc
 import { ActionTypes as FeedActionTypes } from '../../reducers/feed-reducer.js'
 
 /**
- * Константа с возможными css-классами карточек
+ * Типы карточек, в зависимости от которых определяются связанные с ними действия и CSS-стили
  */
 export const CardTypes = {
     SUBSCRIPTION_ITEM: {
         items: [
-            { text: 'Удалить подписку', action: target => store.dispatch({ type: SubActionTypes.SUBSCRIPTIONS_DELETE, payload: target.title }) }
+            {
+                text: 'Удалить подписку', action: target => {
+                    store.dispatch({ type: SubActionTypes.SUBSCRIPTIONS_DELETE, payload: target.title })
+                    store.dispatch({ type: FeedActionTypes.CHANNEL_DELETE, payload: target.title })
+                }
+            }
         ]
     },
     FEED_ITEM: {
@@ -29,7 +35,6 @@ export const CardTypes = {
 
 /**
  * Ссылки "Actions" на карточке Card
- * ** TODO: нужно ли это вообще?
  */
 export class CardActions extends React.Component {
     render() {
@@ -76,7 +81,7 @@ export class Card extends React.Component {
 
     render() {
         let menuItems = this.type.items
-        let menuId = Math.floor(Math.random() * 1000).toString()
+        let menuId = _.uniqueId('menu-btn-')
         return (
             <div class="card-wrapper">
                 <div class={" mdl-card mdl-shadow--2dp "} >

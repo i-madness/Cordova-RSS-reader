@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import moment from 'moment'
 import Utils from './utils.js'
+import Scheduler from './scheduler.js'
 import { ActionTypes as SubActionTypes } from '../reducers/subscription-reducer.js'
 import { ActionTypes as FeedActionTypes } from '../reducers/feed-reducer.js'
 
@@ -20,7 +21,8 @@ const MOMENT_FORMAT = 'DD MMM YYYY HH:mm:ss ZZ'
  * Класс-базовое описание единицы содержимого RSS-ленты
  */
 export class FeedItem {
-    constructor(title, description, timestamp, link) {
+    constructor(title, description, timestamp, link, channel) {
+        this.channel = channel
         this.title = title
         this.description = description
         this.timestamp = timestamp
@@ -48,6 +50,7 @@ export const FeedParser = (function () {
                     .then(responses => Promise.all(responses.map(resp => resp.text())))
                     .then(texts => {
                         let commonResult = []
+                        let txtIndex = 0
                         for (let txt of texts) {
                             try {
                                 let doc = PARSER_INSTANCE.parseFromString(txt, "text/xml")
@@ -55,16 +58,16 @@ export const FeedParser = (function () {
                                 let result = items.map(item => {
                                     let title = Utils.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'title').innerHTML)
                                     let link = Utils.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'link').innerHTML)
-                                    let timestamp = Utils.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'pubDate').innerHTML)
+                                    let timestamp = moment(Utils.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'pubDate').innerHTML), MOMENT_FORMAT).unix()
                                     let description = Utils.cleanupContent(_.find(item.childNodes, child => child.nodeName === 'description').innerHTML)
-                                    return new FeedItem(title, description, timestamp, link);
+                                    return new FeedItem(title, description, timestamp, link, channels[txtIndex]);
                                 }).filter(item => !!item)
                                 commonResult = [...commonResult, ...result]
                             } catch (err) {
                                 return Promise.reject('text:\n' + txt);
                             }
+                            txtIndex++
                         }
-                        commonResult.sort((item1, item2) => - moment(item1.timestamp, MOMENT_FORMAT).diff(moment(item2.timestamp, MOMENT_FORMAT)))
                         return Promise.resolve(commonResult)
                     })
                     .then(result => dispatch({ type: FeedActionTypes.ENTRIES_LOADING_SUCCESS, payload: result }))
@@ -97,14 +100,15 @@ export const FeedParser = (function () {
                         let doc = PARSER_INSTANCE.parseFromString(txt, "text/xml");
                         return Promise.resolve({
                             title: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'title').innerHTML,
-                            description: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'description').innerHTML,
+                            description: Utils.cleanupContent(_.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'description').innerHTML),
                             url: url
                         })
                     })
-                    .then(result => dispatch({ type: SubActionTypes.ADD_SUBSCRIPTION, payload: result }))
+                    .then(result => {
+                        dispatch({ type: SubActionTypes.ADD_SUBSCRIPTION, payload: result })
+                        Scheduler.restart()
+                    })
                     .catch(error => dispatch({ type: SubActionTypes.SUBSCRIPTIONS_LOADING_FAILURE, payload: error }))
             },
-
-
     }
 })()

@@ -1,21 +1,27 @@
 import React from 'react'
+import connect from 'react-redux'
 import { ButtonRippleRaised } from './basic/button.jsx'
+import { ActionTypes } from '../reducers/settings-reducer.js'
+
 
 /**
  * Компонент страницы настроек
  */
+@connect(store => {
+    return {
+        checkDuration: store.settingsReducer.checkDuration,
+    }
+})
 export default class SettingsPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            updateInterval: 60000,
+            updateInterval: this.props.checkDuration
         }
-        this.handleSaveBtnClick = this.handleSaveBtnClick.bind(this)
-        this.handleUpdIntervalChange = this.handleUpdIntervalChange.bind(this)
     }
 
-    handleSaveBtnClick() {
-
+    handleSaveBtnClick(event) {
+        this.props.dispatch({ type: ActionTypes.CHECK_DURATION_CHANGE, payload: this.state.updateInterval })
     }
 
     handleUpdIntervalChange(event) {
@@ -23,7 +29,6 @@ export default class SettingsPage extends React.Component {
             ...this.state,
             updateInterval: event.target.value
         })
-        console.log(this.state.updateInterval)
     }
 
     render() {
@@ -33,14 +38,14 @@ export default class SettingsPage extends React.Component {
                     <div class="input-group">
                         <span class="field-name">Интервал обновления записей в ленте (сек):</span>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="number" id="upd-interval" type="url" onChange={this.handleUpdIntervalChange} />
+                            <input class="mdl-textfield__input" type="number" id="upd-interval" type="url" onChange={() => this.handleUpdIntervalChange()} />
                             <label class="mdl-textfield__label" for="upd-interval"></label>
                         </div>
                     </div>
                 </div>
                 <div>
                     <div class="form-footer">
-                        <ButtonRippleRaised text="Сохранить" onClick={this.handleSaveBtnClick} colored={true} />
+                        <ButtonRippleRaised text="Сохранить" onClick={() => this.handleSaveBtnClick()} colored={true} />
                         <ButtonRippleRaised text="Отмена" navPath="/" />
                     </div>
                 </div>

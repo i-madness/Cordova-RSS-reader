@@ -18,8 +18,12 @@ store.subscribe(() => {
     let subscriptions = state.subscriptionReducer.subscriptions.map(sub => sub.url)
     localStorage.setItem('subscriptions', JSON.stringify(subscriptions))
     localStorage.setItem('favoriteEntries', JSON.stringify(state.feedReducer.favorites))
+    // отображение ошибок:
     let error = state.subscriptionReducer.error || state.feedReducer.error
     if (error && !errorWasShown) {
+        if (error.toString().match(/.*failed to fetch/i)) {
+            error = "Ошибка: не удалось выполнить запрос"
+        }
         let snackbar = document.querySelector('#snackbar-message-error')
         snackbar.MaterialSnackbar.showSnackbar({ message: error });
         errorWasShown = true

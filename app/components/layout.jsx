@@ -5,6 +5,7 @@ import '../../node_modules/material-design-lite/material.js'
 import React from 'react'
 import { Link } from 'react-router'
 import Snackbar from './basic/snackbar.jsx'
+import { connect } from 'react-redux'
 
 const PAGE_TITLE_MAP = {
     '': 'Список RSS-каналов',
@@ -26,6 +27,12 @@ const NAV_LINKS = [
 /**
  * Компонент, содержащий основной каркас приложения
  */
+@connect(store => {
+    return {
+        subsLoading: store.subscriptionReducer.loading,
+        feedLoading: store.feedReducer.loading
+    }
+})
 export default class Layout extends React.Component {
     render() {
         const title = PAGE_TITLE_MAP[window.location.hash.replace('#/', '')]
@@ -34,11 +41,6 @@ export default class Layout extends React.Component {
                 <i class="sidenav-icon material-icons">{link.icon}</i>{link.title}
             </Link>
         )
-        // отображаем кнопку "Добавить новую подписку" в зависимости от текущего расположения
-        let addSubBtn = this.props.location.pathname === '/' ? (
-            <d><Link id="add-sub-link" class="mdl-navigation__link" to="addSub"><i class="material-icons">playlist_add</i></Link>
-                <div class="mdl-tooltip" data-mdl-for="add-sub-link">Добавить подписку</div></d>
-        ) : null
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <div onTouchEnd={() => this.toggleDrawer()} style={{ position: 'absolute', height: '100%', width: '30px', zIndex: 1000 }}></div>
@@ -46,7 +48,6 @@ export default class Layout extends React.Component {
                     <div className="mdl-layout__header-row">
                         <span class="mdl-layout-title">{title}</span>
                         <div class="mdl-layout-spacer"></div>
-                        {/*{addSubBtn}*/}
                     </div>
                 </header>
                 <div className="mdl-layout__drawer">
@@ -57,6 +58,7 @@ export default class Layout extends React.Component {
                 </div>
                 <main className="mdl-layout__content">
                     <div className="page-content">
+                        <div style={{ display: this.props.loading || this.props.feedLoading ? 'block' : 'none' }} id="ajax-preloader" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
                         {this.props.children}
                     </div>
                 </main>

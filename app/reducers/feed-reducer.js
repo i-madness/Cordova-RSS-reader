@@ -1,3 +1,6 @@
+import _ from 'lodash'
+import moment from 'moment'
+
 /**
  * Начальный объект состояния для feedReducer
  */
@@ -18,6 +21,7 @@ export const ActionTypes = {
     ENTRIES_LOADING_SUCCESS: 'ENTRIES_LOADING_SUCCESS',
     ENTRIES_LOADING_FAILURE: 'ENTRIES_LOADING_FAILURE',
     ENTRIES_CHANNEL_FILTER: 'ENTRIES_CHANNEL_FILTER',
+    CHANNEL_DELETE: 'CHANNEL_DELETE',
     ENTRY_HIDE: 'ENTRY_HIDE',
     ADD_TO_FAVORITES: 'ADD_TO_FAVORITES',
     REMOVE_FROM_FAVORITES: 'REMOVE_FROM_FAVORITES'
@@ -35,11 +39,13 @@ export function feedReducer(state = InitialState, action) {
             return { ...state, loading: false, error: action.payload }
         }
         case ActionTypes.ENTRIES_LOADING_SUCCESS: {
+            let newEntries = _.uniqBy([...state.entries, ...action.payload], 'title')
+            newEntries.sort((item1, item2) => item1.timestamp - item2.timestamp)//moment(item1.timestamp, MOMENT_FORMAT).diff(moment(item2.timestamp, MOMENT_FORMAT)))
             return { 
                 ...state, 
                 loading: false, 
                 loaded: true,
-                entries: [...state.entries, ...action.payload],
+                entries: newEntries,
                 error: null
             }
         }
@@ -47,6 +53,12 @@ export function feedReducer(state = InitialState, action) {
             return {
                 ...state,
                 entries: state.entries.filter(entry => entry.channel.title === action.payload)
+            }
+        }
+        case ActionTypes.CHANNEL_DELETE: {
+            return {
+                ...state,
+                entries: state.entries.filter(entry => entry.channel.title !== action.payload)
             }
         }
         case ActionTypes.ENTRY_HIDE: {
