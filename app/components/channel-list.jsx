@@ -6,13 +6,6 @@ import { Card, CardTypes } from './basic/card.jsx'
 import { ButtonRippleRounded } from './basic/button.jsx'
 
 /**
- * Заголовок страницы со списком каналов
- */
-export class ChannelListTitle extends React.Component {
-    render() { return (<span class="mdl-layout-title">Список RSS-лент</span>) }
-}
-
-/**
  * Комопнент, отвечающий за список каналов
  * Располагается в теле страницы (!)
  */
@@ -24,7 +17,7 @@ export class ChannelListTitle extends React.Component {
 export class ChannelList extends React.Component {
     render() {
         let { subscriptions } = this.props;
-        let subCards = subscriptions.map((sub, index) => <Card title={sub.title} text={sub.description} type={CardTypes.SUBSCRIPTION_ITEM} key={index} />)
+        let subCards = subscriptions.map((sub, index) => <Card link={'feed/' + sub.id} title={sub.title} text={sub.description} type={CardTypes.SUBSCRIPTION_ITEM} key={index} />)
         return (
             <div>
                 {subCards}

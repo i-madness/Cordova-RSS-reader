@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import _ from 'lodash'
 import Utils from '../../core/utils.js'
 import Menu from './menu.jsx'
@@ -54,7 +55,7 @@ export class CardActions extends React.Component {
 export class Card extends React.Component {
     constructor(props) {
         super(props);
-        this.type = props.type // ? CardTypes[props.type] : "";
+        this.type = props.type
         this.extraTitleCss = {}
         switch (this.type) {
             case CardTypes.FEED_ITEM: {
@@ -82,11 +83,18 @@ export class Card extends React.Component {
     render() {
         let menuItems = this.type.items
         let menuId = _.uniqueId('menu-btn-')
+        let titleInner = <h2 class="mdl-card__title-text">{this.props.title}</h2>
+        let titleOuter
+        if (this.type === CardTypes.SUBSCRIPTION_ITEM) {
+            titleOuter = <Link to={this.props.link} class="card-link-anchor">{titleInner}</Link>
+        } else {
+            titleOuter = <a href={this.props.link} class="card-link-anchor">{titleInner}</a>
+        }
         return (
             <div class="card-wrapper">
                 <div class={" mdl-card mdl-shadow--2dp "} >
                     <div class="mdl-card__title" style={this.extraTitleCss}>
-                        <a class="card-link-anchor" href={this.props.link}><h2 class="mdl-card__title-text">{this.props.title}</h2></a>
+                        {titleOuter}
                         <div class="mdl-layout-spacer"></div>
                         <Menu domId={menuId} options={menuItems} actionTarget={this.props} />
                     </div>

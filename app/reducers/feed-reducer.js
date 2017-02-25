@@ -7,6 +7,7 @@ import moment from 'moment'
 const InitialState = {
     entries: [],
     hiddenEntries: [],
+    selectedChannel: null,
     favorites: JSON.parse(localStorage.getItem('favoriteEntries')) || [],
     loading: false,
     loaded: true,
@@ -33,17 +34,17 @@ export const ActionTypes = {
 export function feedReducer(state = InitialState, action) {
     switch (action.type) {
         case ActionTypes.ENTRIES_LOADING: {
-            return { ...state, loading: true, loaded: false }
+            return { ...state, loading: true, loaded: false, selectedChannel: null }
         }
         case ActionTypes.ENTRIES_LOADING_FAILURE: {
-            return { ...state, loading: false, error: action.payload }
+            return { ...state, loading: false, error: action.payload, selectedChannel: null }
         }
         case ActionTypes.ENTRIES_LOADING_SUCCESS: {
             let newEntries = _.uniqBy([...state.entries, ...action.payload], 'title')
             newEntries.sort((item1, item2) => - item1.timestamp - item2.timestamp)
-            return { 
-                ...state, 
-                loading: false, 
+            return {
+                ...state,
+                loading: false,
                 loaded: true,
                 entries: newEntries,
                 error: null
@@ -52,7 +53,8 @@ export function feedReducer(state = InitialState, action) {
         case ActionTypes.ENTRIES_CHANNEL_FILTER: {
             return {
                 ...state,
-                entries: state.entries.filter(entry => entry.channel.title === action.payload)
+                selectedChannel: action.payload.title,
+                entries: state.entries.filter(entry => entry.channel.title === action.payload.title)
             }
         }
         case ActionTypes.CHANNEL_DELETE: {
@@ -64,7 +66,7 @@ export function feedReducer(state = InitialState, action) {
         case ActionTypes.ENTRY_HIDE: {
             return {
                 ...state,
-                hiddenEntries: [...state.hiddenEntries ,state.entries.find(entry => entry.title === action.payload)],
+                hiddenEntries: [...state.hiddenEntries, state.entries.find(entry => entry.title === action.payload)],
                 entries: state.entries.filter(entry => entry.title !== action.payload),
             }
         }

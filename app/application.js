@@ -29,10 +29,10 @@ ReactDom.render(
         <Router history={hashHistory}>
             <Route path="/" component={Layout} >
                 <IndexRoute component={ChannelList}></IndexRoute>
-                <Route path="feed"      component={Feed}></Route>
-                <Route path="addSub"    component={AddSubscriptionForm}></Route>
-                <Route path="settings"  component={SettingsPage}></Route>
-                <Route path="favorites" component={Favorites}></Route>
+                <Route path="feed(/:channel)" component={Feed} ></Route>
+                <Route path="addSub"          component={AddSubscriptionForm}></Route>
+                <Route path="settings"        component={SettingsPage}></Route>
+                <Route path="favorites"       component={Favorites}></Route>
             </Route>
         </Router>
     </Provider>,

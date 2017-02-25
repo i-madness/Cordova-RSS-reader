@@ -30,12 +30,17 @@ const NAV_LINKS = [
 @connect(store => {
     return {
         subsLoading: store.subscriptionReducer.loading,
-        feedLoading: store.feedReducer.loading
+        subscriptions: store.subscriptionReducer.subscriptions,
+        feedLoading: store.feedReducer.loading,
+        selectedChannel: store.feedReducer.selectedChannel,
     }
 })
 export default class Layout extends React.Component {
     render() {
-        const title = PAGE_TITLE_MAP[window.location.hash.replace('#/', '')]
+        let title = PAGE_TITLE_MAP[window.location.hash.replace('#/', '')] || this.props.selectedChannel
+        if (title && window.screen.width < 500 && title.length > 30) {
+            title = title.substring(0, 30) + '...'
+        }
         let navLinks = NAV_LINKS.map((link, index) =>
             <Link to={link.to} key={index} className={'mdl-navigation__link'} onMouseUp={() => this.toggleDrawer()}>
                 <i class="sidenav-icon material-icons">{link.icon}</i>{link.title}

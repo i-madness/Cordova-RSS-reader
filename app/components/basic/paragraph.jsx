@@ -11,7 +11,7 @@ export default class Paragraph extends React.Component {
         let images = matches ? matches.map((str,i) => {
             let url = str.match(/\/\/.*\.[a-z]*/g)[0]
             url = url.replace(/(http:){0,1}\/\//, 'http://') // данное преобразование таргетит обрезанные (без "http://") URL
-            return <img key={i} src={url} style={{width: '100%'}} />
+            return <img key={i} src={url} style={{width: '100%', marginBottom: '7px'}} />
         }) : null
         content = content
             .split(/<img.*\W+\/>/i).join('')
