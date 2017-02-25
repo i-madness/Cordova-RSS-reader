@@ -11,7 +11,8 @@ const InitialState = {
     favorites: JSON.parse(localStorage.getItem('favoriteEntries')) || [],
     loading: false,
     loaded: true,
-    error: null
+    error: null,
+    lastUpdTime: null
 }
 
 /**
@@ -37,7 +38,7 @@ export function feedReducer(state = InitialState, action) {
             return { ...state, loading: true, loaded: false, selectedChannel: null }
         }
         case ActionTypes.ENTRIES_LOADING_FAILURE: {
-            return { ...state, loading: false, error: action.payload, selectedChannel: null }
+            return { ...state, loading: false, error: action.payload, selectedChannel: null, lastUpdTime: null }
         }
         case ActionTypes.ENTRIES_LOADING_SUCCESS: {
             let newEntries = _.uniqBy([...state.entries, ...action.payload], 'title')
@@ -47,7 +48,8 @@ export function feedReducer(state = InitialState, action) {
                 loading: false,
                 loaded: true,
                 entries: newEntries,
-                error: null
+                error: null,
+                lastUpdTime: moment()
             }
         }
         case ActionTypes.ENTRIES_CHANNEL_FILTER: {

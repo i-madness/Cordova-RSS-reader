@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
+
 import { FeedParser, feedPromise } from '../core/parser.js'
 import UpdateScheduler from '../core/scheduler.js'
 import { ActionTypes as FeedReducerActions } from '../reducers/feed-reducer.js'
@@ -16,15 +18,13 @@ import Paragraph from './basic/paragraph.jsx'
         channels: store.subscriptionReducer.subscriptions,
         loading: store.feedReducer.loading,
         entries: store.feedReducer.entries,
-        hiddenEntries: store.feedReducer.hiddenEntries
+        hiddenEntries: store.feedReducer.hiddenEntries,
+        lastUpdTime: store.feedReducer.lastUpdTime
     }
 })
 export class Feed extends React.Component {
-
     componentWillMount() {
         let { channels } = this.props
-        //channels && this.props.dispatch(FeedParser.parseSubscription(channels))
-        UpdateScheduler.stop()
         UpdateScheduler.update()
         if (channels && this.props.params && this.props.params.channel) {
             feedPromise.then(() => {
@@ -35,16 +35,13 @@ export class Feed extends React.Component {
     }
 
     refresh() {
-        UpdateScheduler.stop() // пока не понятно, что вообще делать с этим планировщиком
         UpdateScheduler.update()
         if (this.props.params && this.props.params.channel) {
             feedPromise.then(() => {
                 let requiredChannel = this.props.channels.find(ch => ch.id === this.props.params.channel)
                 this.props.dispatch({ type: FeedReducerActions.ENTRIES_CHANNEL_FILTER, payload: requiredChannel })
             })
-        } else {
-            UpdateScheduler.scheduleCheckingTask()
-        }
+        } 
     }
 
     render() {

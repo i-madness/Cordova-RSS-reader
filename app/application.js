@@ -22,7 +22,6 @@ const APP_CONTAINER = document.querySelector('#app')
 let subscriptionUrls = JSON.parse(localStorage.getItem('subscriptions'))
 subscriptionUrls && subscriptionUrls.forEach(url => store.dispatch(FeedParser.addRssFeed(url)))
 Utils.tryUntil(UpdateScheduler.update)(50)(() => !!store.getState().subscriptionReducer.subscriptions.length)
-UpdateScheduler.scheduleCheckingTask()
 
 ReactDom.render(
     <Provider store={store}>
