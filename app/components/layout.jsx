@@ -21,7 +21,7 @@ const NAV_LINKS = [
     { title: 'Список подписок', to: '/', icon: 'view_list' },
     { title: 'Лента', to: 'feed', icon: 'rss_feed' },
     { title: 'Избранное', to: 'favorites', icon: 'star' },
-    { title: 'Настройки', to: 'settings', icon: 'settings' },
+    /*{ title: 'Настройки', to: 'settings', icon: 'settings' },*/
 ]
 
 /**
