@@ -13,6 +13,7 @@ import { Feed } from './components/feed.jsx'
 import { AddSubscriptionForm } from './components/add-subscription-form.jsx'
 import SettingsPage from './components/settings.jsx'
 import Favorites from './components/favorites.jsx'
+import AboutPage from './components/about.jsx'
 
 /**
  * Главный DOM-элемент, в котором рендерится всё приложение
@@ -32,6 +33,7 @@ ReactDom.render(
                 <Route path="addSub"          component={AddSubscriptionForm}></Route>
                 <Route path="settings"        component={SettingsPage}></Route>
                 <Route path="favorites"       component={Favorites}></Route>
+                <Route path="about"           component={AboutPage}></Route>
             </Route>
         </Router>
     </Provider>,

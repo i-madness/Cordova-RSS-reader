@@ -108,7 +108,7 @@ export const FeedParser = {
                 })
                 .then(result => {
                     dispatch({ type: SubActionTypes.ADD_SUBSCRIPTION, payload: result })
-                    Scheduler.restart()
+                    Scheduler.update()
                 })
                 .catch(error => dispatch({ type: SubActionTypes.SUBSCRIPTIONS_LOADING_FAILURE, payload: error }))
         },

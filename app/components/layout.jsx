@@ -12,7 +12,8 @@ const PAGE_TITLE_MAP = {
     'feed': 'Лента',
     'addSub': 'Добавление нового канала',
     'settings': 'Настройки',
-    'favorites': 'Избранное'
+    'favorites': 'Избранное',
+    'about': 'О программе',
 }
 /**
  * Список навигационных ссылок
@@ -21,6 +22,7 @@ const NAV_LINKS = [
     { title: 'Список подписок', to: '/', icon: 'view_list' },
     { title: 'Лента', to: 'feed', icon: 'rss_feed' },
     { title: 'Избранное', to: 'favorites', icon: 'star' },
+    { title: 'О программе', to: 'about', icon: 'info' }
     /*{ title: 'Настройки', to: 'settings', icon: 'settings' },*/
 ]
 
@@ -56,7 +58,7 @@ export default class Layout extends React.Component {
                     </div>
                 </header>
                 <div className="mdl-layout__drawer">
-                    <span className="mdl-layout-title sidepan-header">Действия</span>
+                    <span className="mdl-layout-title sidepan-header">Feed Reader</span>
                     <nav className="mdl-navigation">
                         {navLinks}
                     </nav>
