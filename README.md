@@ -16,7 +16,8 @@
 Простейший способ проверить работу приложения - запустить его из браузера
 ```bash
 # cd Cordova-RSS-reader
-# npm install -g cordova webpack-cli # если у вас ещё нет этих CLI
+# npm install -g cordova webpack-cli # - если у вас ещё нет этих CLI
+npm install
 webpack
 cordova platform add browser
 cordova run browser
