@@ -26,6 +26,9 @@ export const ActionTypes = {
 export function subscriptionReducer(state = InitialState, action) {
     switch (action.type) {
         case ActionTypes.ADD_SUBSCRIPTION: {
+            if (state.subscriptions.find(sub => sub.url === action.payload.url)) {
+                return { ...state }
+            }
             return {
                 ...state,
                 loaded: true,

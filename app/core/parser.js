@@ -42,7 +42,7 @@ export const FeedParser = {
      * @param urls {Array<String>} список из URL каналов, для которых надо получить элементы ленты
      * @returns {Promise}
      */
-    parseSubscription: (channels) => dispatch => {
+    parseSubscription: channels => dispatch => {
         dispatch({ type: FeedActionTypes.ENTRIES_LOADING })
         feedPromise = Promise.all(channels.map(channel => fetch(channel.url)))
             .then(responses => Promise.all(responses.map(resp => resp.text())))
@@ -85,7 +85,7 @@ export const FeedParser = {
      * *** 'http://resource.com/', добавляя к ним 'rss.xml' (типа традиционный URL для лент новостных сайтов)
      * 
      */
-    addRssFeed: (url) => dispatch => {
+    addRssFeed: url => dispatch => {
         if (!url) {
             return dispatch({ type: SubActionTypes.SUBSCRIPTIONS_LOADING_FAILURE, payload: 'Поле "URL канала" не может быть пустым' })
         }
@@ -98,8 +98,14 @@ export const FeedParser = {
                 }
                 let doc = PARSER_INSTANCE.parseFromString(txt, "text/xml");
                 return Promise.resolve({
-                    title: _.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'title').innerHTML,
-                    description: Utils.cleanupContent(_.find(Array.from(doc.querySelector('channel').childNodes), node => node.nodeName === 'description').innerHTML),
+                    title: _.find(
+                            Array.from(doc.querySelector('channel').childNodes),
+                            node => node.nodeName === 'title'
+                        ).innerHTML,
+                    description: Utils.cleanupContent(_.find(
+                            Array.from(doc.querySelector('channel').childNodes),
+                            node => node.nodeName === 'description'
+                        ).innerHTML),
                     url: url,
                     id: _.uniqueId('ch')
                 })

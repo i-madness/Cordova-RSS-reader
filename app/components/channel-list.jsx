@@ -17,7 +17,15 @@ import { ButtonRippleRounded } from './basic/button.jsx'
 export class ChannelList extends React.Component {
     render() {
         let { subscriptions } = this.props;
-        let subCards = subscriptions.map((sub, index) => <Card link={'feed/' + sub.id} title={sub.title} text={sub.description} type={CardTypes.SUBSCRIPTION_ITEM} key={index} />)
+        let subCards = subscriptions.map((sub, index) => 
+            <Card 
+                link={'feed/' + sub.id}
+                title={sub.title}
+                text={sub.description}
+                type={CardTypes.SUBSCRIPTION_ITEM}
+                key={index}
+            />
+        )
         return (
             <div>
                 {subCards}

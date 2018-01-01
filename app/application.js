@@ -14,14 +14,10 @@ import { AddSubscriptionForm } from './components/add-subscription-form.jsx'
 import SettingsPage from './components/settings.jsx'
 import Favorites from './components/favorites.jsx'
 import AboutPage from './components/about.jsx'
+import { ActionTypes as SubscriptionActions } from './reducers/subscription-reducer'
 
-/**
- * Главный DOM-элемент, в котором рендерится всё приложение
- */
-const APP_CONTAINER = document.querySelector('#app')
-
-let subscriptionUrls = JSON.parse(localStorage.getItem('subscriptions'))
-subscriptionUrls && subscriptionUrls.forEach(url => store.dispatch(FeedParser.addRssFeed(url)))
+let subscriptions = JSON.parse(localStorage.getItem('subscriptions')) || []
+store.dispatch({ payload: subscriptions, type: SubscriptionActions.SUBSCRIPTIONS_LOADING_SUCCESS })
 Utils.tryUntil(UpdateScheduler.update)(50)(() => !!store.getState().subscriptionReducer.subscriptions.length)
 
 ReactDom.render(
@@ -37,5 +33,5 @@ ReactDom.render(
             </Route>
         </Router>
     </Provider>,
-    APP_CONTAINER
+    document.querySelector('#app')
 )
